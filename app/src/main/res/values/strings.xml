@@ -1,3 +1,45 @@
-<resources>
-    <string name="app_name">CZ3004_Android</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Group 35 Android Controller</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="send">Send</string>
+    <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
+    <string name="title_connecting">connecting...</string>
+    <string name="title_connected_to">connected to <xliff:g id="device_name">%1$s</xliff:g></string>
+    <string name="title_not_connected">not connected</string>
+
+
+
+    <!-- Options Menu -->
+    <string name="secure_connect">Connect to Device</string>
+    <string name="insecure_connect">Connect a device - Insecure</string>
+    <string name="discoverable">Make Discoverable</string>
+    <string name="set_waypoint">Set Waypoint</string>
+    <string name="remove_waypoint">Remove Waypoint</string>
+    <string name="set_robot_position">Set Robot Position</string>
+    <string name="auto_map">Auto Update Map</string>
+    <string name="update_map">Manual Update Map</string>
+    <string name="set_config1">Set String 1 (C1)</string>
+    <string name="set_config2">Set String 2 (C2)</string>
+    <string name="swipe_input">Enable Gesture Control</string>
+    <string name="show_data_strings">Show Data Strings</string>
+    <string name="show_bluetooth_service">Show Bluetooth Comm</string>
+    <string name="image_recognition_string">Image Recognition String</string>
+    <string name="mdf_string_2_discovered_obstacles">MDF String 2: Discovered Obstacles</string>
+    <string name="mdf_string_1_explored_squares">MDF String 1: Explored Squares</string>
+    <!--  Bluetooth Message Fragment -->
+
+
+    <!-- Bluetooth Pairing Activity-->
+    <string name="scanning">Scanning for devices...</string>
+    <string name="select_device">Please select a device</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+
+    <!-- Options Menu -->
+
 </resources>
