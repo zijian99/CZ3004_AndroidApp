@@ -3,18 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/MDP/group9Android/app/src/main/res/layout/activity_main.xml" value="0.2501068832834545" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/MDP/group9Android/app/src/main/res/layout/message.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/MDP/group9Android/app/src/main/res/layout/obstacle_popup_direction.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/MDP/group9Android/app/src/main/res/menu/main_menu.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/activity_device_list.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/device_name.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/fragment_bluetooth.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/message.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/layout/obstacle_popup_direction.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/menu/main.xml" value="0.3046875" />
-        <entry key="..\:/Users/zijia/OneDrive/Desktop/group9Android/app/src/main/res/menu/main_menu.xml" value="0.1" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/activity_device_list.xml" value="0.3046875" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/activity_main.xml" value="0.290625" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/device_name.xml" value="0.43507462686567167" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/fragment_bluetooth.xml" value="0.3046875" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/message.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/layout/obstacle_popup_direction.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/menu/main.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/zijia/OneDrive/Desktop/CZ3004_AndroidController/app/src/main/res/menu/main_menu.xml" value="0.43507462686567167" />
       </map>
     </option>
   </component>

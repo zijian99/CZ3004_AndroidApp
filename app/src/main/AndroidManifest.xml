@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.group9Android.mdp">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.ntugroup35">
+<!--    Bluetooth required permission  -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
-
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
-
     <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
 
     <application
@@ -26,10 +22,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MDP">
+        android:theme="@style/Theme.CZ3004_AndroidController">
         <activity
-            android:name="com.group9Android.mdp.MainActivity"
-            android:label="Group 35 Android">
+            android:name="com.example.ntugroup35.MainActivity"
+            android:label="Group 35 Android"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.group9Android.mdp.bluetooth.DevicesList"
+            android:name="com.example.ntugroup35.Bluetooth.DeviceList"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
