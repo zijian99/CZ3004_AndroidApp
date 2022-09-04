@@ -3,12 +3,12 @@ package com.example.ntugroup35;
 import java.util.ArrayList;
 
 public class Maze {
-    private static Maze maze;
+    private static Maze mazemap;
     public static Maze getInstance(){
-        if (maze == null){
-            maze = new Maze();
+        if (mazemap == null){
+            mazemap = new Maze();
         }
-        return maze;
+        return mazemap;
     }
 
     private Maze(){}
