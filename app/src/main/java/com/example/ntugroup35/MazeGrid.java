@@ -147,7 +147,9 @@ public class MazeGrid extends View {
         }
     }
 
+    // draw Robot on Maze
     private void drawRobot(Canvas canvas, int col, int row, char direction){
+        // create new object and initialise
         Matrix robotBoxMatrix = new Matrix();
         Bitmap robotBoxBitmap = Bitmap.createBitmap(this.robotBoxBitmap,0,0, this.robotBoxBitmap.getWidth(),
                 this.robotBoxBitmap.getHeight(), robotBoxMatrix, true);
@@ -178,6 +180,7 @@ public class MazeGrid extends View {
 
     }
 
+    // draw Obstacle on maze
     private void drawObstacles(Canvas canvas){
         float textSize = this.whiteNumber.getTextSize();
         Maze maze = Maze.getInstance();
@@ -323,6 +326,7 @@ public class MazeGrid extends View {
         return true;
     }
 
+    // set direction obstacle is facing
     public void setObstacleDirection(Obstacle obstacle, char side){
         obstacle.setSide(side);
         char direction = obstacle.getSide();
