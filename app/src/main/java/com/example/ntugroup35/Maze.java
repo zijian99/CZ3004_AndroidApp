@@ -3,12 +3,12 @@ package com.example.ntugroup35;
 import java.util.ArrayList;
 
 public class Maze {
-    private static Maze maze;
+    private static Maze mazemap;
     public static Maze getInstance(){
-        if (maze == null){
-            maze = new Maze();
+        if (mazemap == null){
+            mazemap = new Maze();
         }
-        return maze;
+        return mazemap;
     }
 
     private Maze(){}
@@ -19,6 +19,7 @@ public class Maze {
         return this.obstacles;
     }
 
+    // add new obstacle to arrayList of obstacles
     public Obstacle addObstacle(){
         int number = this.obstacles.size() + 1;
         Obstacle newObstacle = new Obstacle(number);
@@ -26,6 +27,7 @@ public class Maze {
         return newObstacle;
     }
 
+    // remove obstacle from arrayList of obstacles
     public void removeObstacle(Obstacle obstacle){
         int indexToRemove = obstacle.getNumberObs() - 1;
         this.obstacles.remove(indexToRemove);
@@ -34,6 +36,7 @@ public class Maze {
         }
     }
 
+    // find obstacle at a particular x and y coordinate
     public Coordinates findObstacle(int x, int y){
         for (Coordinates obstacle: this.obstacles){
             if (obstacle.containsCoordinate(x, y)){
@@ -43,6 +46,7 @@ public class Maze {
         return null;
     }
 
+    // check if coodinates is occupied by anything other than the obstacle
     public boolean isOccupied(int x, int y, Obstacle obstacle){
         for (Obstacle o: this.obstacles){
             if (o.containsCoordinate(x, y) && o != obstacle){
