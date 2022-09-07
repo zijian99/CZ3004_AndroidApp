@@ -69,22 +69,20 @@ public class DeviceList extends Activity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 doDiscovery();
-                //v.setVisibility(View.GONE);
             }
         });
 
-        // Initialize array adapters. One for already paired devices and
-        // one for newly discovered devices
+        // Initialize array adapters. One for already paired devices and one for newly discovered devices
         ArrayAdapter<String> pairedDevicesArrayAdapter =
                 new ArrayAdapter<String>(this, R.layout.device_name);
         mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
 
-        // Find and set up the ListView for paired devices
+        // Find and set up the ListView for paired devices and set up on click
         ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
         pairedListView.setAdapter(pairedDevicesArrayAdapter);
         pairedListView.setOnItemClickListener(mDeviceClickListener);
 
-        // Find and set up the ListView for newly discovered devices
+        // Find and set up the ListView for newly discovered devices and set up on click
         ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
@@ -136,7 +134,7 @@ public class DeviceList extends Activity {
     private void doDiscovery() {
         Log.d(TAG, "doDiscovery()");
 
-        // Indicate scanning in the title
+        // Indicate scanning in the title and the loading icon
         setProgressBarIndeterminateVisibility(true);
         setTitle(R.string.scanning);
 
@@ -159,14 +157,14 @@ public class DeviceList extends Activity {
             = new AdapterView.OnItemClickListener() {
         @SuppressLint("MissingPermission")
         public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
-            // Cancel discovery because it's costly and we're about to connect
+            // Cancel discovery as we will end the activity soon
             mBtAdapter.cancelDiscovery();
 
-            // Get the device MAC address, which is the last 17 chars in the View
+            // Get the clicked device MAC address
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
-            // Create the result Intent and include the MAC address
+            // Create the result Intent and include the MAC address to bring back
             Intent intent = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
 
@@ -190,16 +188,19 @@ public class DeviceList extends Activity {
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                // If it's already paired, skip it, because it's been listed already
-
+                // Make sure the device is not a paired devices as paired device has been shown and
+                // Make sure the device is not null
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED && device.getName()!=null) {
+                    //try to remove the device to prevent same devices added to the list
                     mNewDevicesArrayAdapter.remove(device.getName() + "\n" + device.getAddress());
                     mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                     Log.e("available",device.getName() + "\n" + device.getAddress());
+                    //Must notify to show the new device added to the list
                     mNewDevicesArrayAdapter.notifyDataSetChanged();
                 }
                 // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                //Stop the loading icon
                 setProgressBarIndeterminateVisibility(false);
                 setTitle(R.string.select_device);
                 if (mNewDevicesArrayAdapter.getCount() == 0) {

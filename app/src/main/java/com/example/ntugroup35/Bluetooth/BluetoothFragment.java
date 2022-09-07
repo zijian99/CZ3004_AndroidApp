@@ -44,9 +44,15 @@ import com.example.ntugroup35.Robot;
  */
 public class BluetoothFragment extends Fragment {
 
+    /**
+     * Tag for log in this fragment
+     */
     private static final String TAG = "BluetoothFragment";
+    /**
+     * Request code for location permission
+     */
     private final int LOCATION_PERMISSION_REQUEST = 101;
-    // Intent request codes
+    // Intent request codes from device list activity
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
@@ -117,6 +123,7 @@ public class BluetoothFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //stop bluetooth service
         if (mChatService != null) {
             mChatService.stop();
         }
@@ -174,7 +181,7 @@ public class BluetoothFragment extends Fragment {
             public void onClick(View v) {
                 // Send a message using content of the edit text widget
                 View view = getView();
-                if (null != view) {
+                if (view!= null) {
                     TextView textView = view.findViewById(R.id.edit_text_out);
                     String message = textView.getText().toString();
                     sendMessage(message);
@@ -203,7 +210,7 @@ public class BluetoothFragment extends Fragment {
     }
 
     /**
-     * Sends a message.
+     * Sends a message.(MazeGrid)
      *
      * @param message A string of text to send.
      */
@@ -231,6 +238,10 @@ public class BluetoothFragment extends Fragment {
         }
     }
 
+    /**
+     * Mainactivity sendMsg
+     * @param message
+     */
     public void sendMsg(String message){
         sendMessage(message);
     }
@@ -274,7 +285,8 @@ public class BluetoothFragment extends Fragment {
             return true;
         }
     };
-
+////////////////////////////////////////////////////////////////////////////////
+    //polymorphism
     /**
      * Updates the status on the action bar.
      *
@@ -309,6 +321,7 @@ public class BluetoothFragment extends Fragment {
         actionBar.setSubtitle(subTitle);
     }
 
+////////////////////////////////////////////////////////////////////////////////
     /**
      * The Handler that gets information back from the BluetoothService
      */
@@ -317,6 +330,7 @@ public class BluetoothFragment extends Fragment {
         public void handleMessage(Message msg) {
             FragmentActivity activity = getActivity();
             switch (msg.what) {
+                //Bluetooth state change
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothService.STATE_CONNECTED:
@@ -332,12 +346,14 @@ public class BluetoothFragment extends Fragment {
                             break;
                     }
                     break;
+                    //send message to device
                 case Constants.MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     mConversationArrayAdapter.add("Me:  " + writeMessage);
                     break;
+                    //receive message from device
                 case Constants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
@@ -403,7 +419,7 @@ public class BluetoothFragment extends Fragment {
             }
         }
     };
-
+    //from device list activity
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CONNECT_DEVICE_SECURE:
@@ -443,7 +459,7 @@ public class BluetoothFragment extends Fragment {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     private void connectDevice(Intent data, boolean secure) {
-        // Get the device MAC address
+        // Get the device MAC address from device list activity bundle
         Bundle extras = data.getExtras();
         if (extras == null) {
             return;
@@ -459,6 +475,7 @@ public class BluetoothFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
     }
+    //require location and bluetooth permission to access bluetooth
     private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
@@ -486,6 +503,12 @@ public class BluetoothFragment extends Fragment {
         return false;
     }
 
+    /**
+     * Check whether string is an integer
+     *
+     * @param input string to be checked
+     * @return boolean
+     */
     private boolean isInteger( String input ) {
         try {
             Integer.parseInt( input );

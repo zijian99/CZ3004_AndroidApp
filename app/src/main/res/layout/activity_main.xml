@@ -186,8 +186,8 @@
                             android:layout_height="220dp"
                             android:layout_centerInParent="true"
                             android:contentDescription="TODO"
-                            android:src="@drawable/dpad__group9"
-                            app:srcCompat="@drawable/dpad__group9" />
+                            android:src="@drawable/dpad__group35"
+                            app:srcCompat="@drawable/dpad__group35" />
 
                     </RelativeLayout>
 

@@ -1,8 +1,6 @@
 package com.example.ntugroup35;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -20,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -28,18 +25,53 @@ import androidx.lifecycle.Observer;
 import com.example.ntugroup35.Bluetooth.BluetoothFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * Tag for log in Main Activity
+     */
     public static final String TAG = "MainActivity";
+    /**
+     * Robot instance
+     */
     static Robot robot = new Robot();
+    /**
+     * Tilt class
+     */
     private Tilt tilt;
+    /**
+     * Mutable Live Data
+     */
     MutableLiveData<String> listen = new MutableLiveData<>();
+    /**
+     * Text View for x coordinate
+     */
     public static TextView textX;
+    /**
+     * Text View for y coordinate
+     */
     public static TextView textY;
+    /**
+     * Text View for direction
+     */
     public static TextView textDirection;
+    /**
+     * Text View for robot status
+     */
     public static TextView textRobotStatus;
+    /**
+     * Whether tilt is on
+     */
     public boolean tiltCheck = false;
+    /**
+     * 20x20 Maze for the robot and obstacle
+     */
     private static MazeGrid mazeGrid;
+    /**
+     * Fragment for bluetooth message
+     */
     BluetoothFragment fragment;
+    /**
+     * Sensor Manager for tilting
+     */
     private SensorManager sensorManager;
 
 
@@ -321,10 +353,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Send message to other device
+     *
+     * @param sendMsg Message need to be sent
+     */
     public void outgoingMessage(String sendMsg) {
         fragment.sendMsg(sendMsg);
     }
 
+    /**
+     * A view for selecting the obstacle facing direction
+     * @param c activity context
+     * @param view current view
+     * @param obstacle obstacle to be changed for direction
+     */
     public static void obstacleDirectionPopup(Context c, View view, Obstacle obstacle) {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -387,6 +430,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set the robot position
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param direction direction of robot facing
+     * @return boolean
+     */
     public static boolean setRobotPosition(int x, int y, char direction){
         if (1 <= x && x <= 18 && 1 <= y && y <= 18 && (direction == 'N' || direction == 'S' || direction == 'E' || direction == 'W')){
             robot.setCoordinates(x, y);
@@ -400,32 +451,57 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Move robot forward
+     */
     public static void setRobotPositionEXForward(){
         robot.moveRobotForward();
         mazeGrid.invalidate();
     }
+    /**
+     * Move robot backward
+     */
     public static void setRobotPositionEXBackward(){
         robot.moveRobotBackward();
         mazeGrid.invalidate();
     }
+    /**
+     * Move robot turn to left
+     */
     public static void setRobotPositionEXLeft(){
         robot.moveRobotTurnLeft();
         mazeGrid.invalidate();
     }
+    /**
+     * Move robot turn to right
+     */
     public static void setRobotPositionEXRight(){
         robot.moveRobotTurnRight();
         mazeGrid.invalidate();
     }
+    /**
+     * Make robot turn hard left
+     */
     public static void setRobotPositionEXHardLeft(){
         robot.moveRobotHardLeft();
         mazeGrid.invalidate();
     }
+    /**
+     * Make robot turn hard right
+     */
     public static void setRobotPositionEXHardRight(){
         robot.moveRobotHardRight();
         mazeGrid.invalidate();
     }
 
-
+    /**
+     * Set current obstacle as explored
+     *
+     * @param obstacleNumber number of obstacle
+     * @param targetID obstacle target id
+     *
+     * @return boolean
+     */
     public static boolean exploreTarget(int obstacleNumber, int targetID){
         // if obstacle number exists in map
         if (1 <= obstacleNumber && obstacleNumber <= Maze.getInstance().getObstacles().size()){
@@ -437,6 +513,10 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Update robot status and on view
+     * @param status status of the robot
+     */
     public static void updateRobotStatus(String status){
         robot.setStatus(status);
         textRobotStatus.setText(robot.getStatus());
