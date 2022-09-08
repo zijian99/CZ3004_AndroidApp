@@ -42,7 +42,7 @@ public class MazeGrid extends View {
 
     // Images
     private final Bitmap robotBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.robot);
-    private final Bitmap robotBoxBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.robot2);
+    private final Bitmap robotBoxBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.robot);
     private final Bitmap obstacleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.obstacleblock);
 
     // Handle motion
@@ -58,10 +58,21 @@ public class MazeGrid extends View {
     public static final int obstacleBoxBottom = 16 - 2;
     public static final int obstacleBoxTop = 16;
 
+    /**
+     * Construtor of MazeGrid
+     *
+     * @param context
+     */
     public MazeGrid(Context context){
         this(context, null);
     }
 
+    /**
+     * Constructor of MazeGrid
+     *
+     * @param context
+     * @param attrs
+     */
     public MazeGrid(Context context, AttributeSet attrs){
         super(context, attrs);
         whitePaint.setColor(Color.WHITE);
@@ -79,6 +90,7 @@ public class MazeGrid extends View {
         exploredWhiteNumber.setTextSize(22);
         exploredWhiteNumber.setTextAlign(Paint.Align.CENTER);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas){
@@ -103,6 +115,9 @@ public class MazeGrid extends View {
         drawRobot(canvas, MainActivity.robot.getX(), MainActivity.robot.getY(), MainActivity.robot.getDirection());
     }
 
+    /**
+     * Calculate the dimension based on phone width and height
+     */
     private void calculateDimensions(){
         int toolbarNumOfCells = 4;
         this.width = getWidth();
@@ -115,6 +130,11 @@ public class MazeGrid extends View {
         this.toolbar = toolbarNumOfCells * cellWidth;
     }
 
+    /**
+     * Draw coordinates
+     *
+     * @param canvas
+     */
     private void drawCoordinates(Canvas canvas){
         float offsetX = padding + border + cellWidth;
         float offsetY = padding + border;
@@ -139,6 +159,14 @@ public class MazeGrid extends View {
         }
     }
 
+    /**
+     * Draw robot
+     *
+     * @param canvas
+     * @param col
+     * @param row
+     * @param direction
+     */
     private void drawRobot(Canvas canvas, int col, int row, char direction){
         Matrix robotBoxMatrix = new Matrix();
         Bitmap robotBoxBitmap = Bitmap.createBitmap(this.robotBoxBitmap,0,0, this.robotBoxBitmap.getWidth(),
@@ -170,6 +198,10 @@ public class MazeGrid extends View {
 
     }
 
+    /**
+     * Draw Obstacle
+     * @param canvas
+     */
     private void drawObstacles(Canvas canvas){
         float textSize = this.whiteNumber.getTextSize();
         Maze maze = Maze.getInstance();
@@ -205,6 +237,10 @@ public class MazeGrid extends View {
         }
     }
 
+    /**
+     * Draw obstacle box
+     * @param canvas
+     */
     private void drawObstacleBox(Canvas canvas){
         Matrix matrix = new Matrix();
         Bitmap bm = Bitmap.createBitmap(obstacleBitmap,0,0, obstacleBitmap.getWidth(), obstacleBitmap.getHeight(), matrix, true);
@@ -213,6 +249,9 @@ public class MazeGrid extends View {
 
     }
 
+    /**
+     * Gesture detector
+     */
     // Gesture detector for handling long presses
     final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
         public void onLongPress(MotionEvent event) {
@@ -225,6 +264,11 @@ public class MazeGrid extends View {
         }
     });
 
+    /**
+     * Handle touch and drag of robot and obstacle
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -316,6 +360,12 @@ public class MazeGrid extends View {
         return true;
     }
 
+    /**
+     * Set the obstacle facing direction
+     *
+     * @param obstacle
+     * @param side
+     */
     public void setObstacleDirection(Obstacle obstacle, char side){
         obstacle.setSide(side);
         char direction = obstacle.getSide();
@@ -325,6 +375,13 @@ public class MazeGrid extends View {
         invalidate();
     }
 
+    /**
+     * Convert direction char to int
+     *
+     * @param direction
+     * @param num
+     * @return
+     */
     public String directionTo1234(char direction, String num){
         if (direction == 'N')
             num = "1";

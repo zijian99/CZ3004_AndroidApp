@@ -81,9 +81,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listen.setValue("Default");
-        tilt = new Tilt(this);
+//        listen.setValue("Default");
+//        tilt = new Tilt(this);
 
+        init();
+        // Remove shadow of action bar
+        getSupportActionBar().setElevation(0);
+        // Set layout to shift up when soft keyboard is open
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            fragment = new BluetoothFragment();
+            transaction.replace(R.id.textBox, fragment);
+            transaction.commit();
+
+        }
+        setupBtn();
+
+    }
+
+    /**
+     * Initialize variables
+     */
+    public void init(){
         //drawing of map grid
         mazeGrid = findViewById(R.id.maze);
 
@@ -96,7 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Update Robot Status
         textRobotStatus = findViewById(R.id.textRobotStatus);
+    }
 
+    /**
+     * Setup button in activity
+     */
+    public void setupBtn(){
         //Start arena exploration
         findViewById(R.id.arenaObstacles).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,20 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 textRobotStatus.setText(robot.getStatus());
                 outgoingMessage("STM,I"); //send message to RPI to let them know robot may start moving
             }});
-
-        // Remove shadow of action bar
-        getSupportActionBar().setElevation(0);
-        // Set layout to shift up when soft keyboard is open
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            fragment = new BluetoothFragment();
-            transaction.replace(R.id.textBox, fragment);
-            transaction.commit();
-
-        }
-
         // Move forward
         findViewById(R.id.btnForward).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -361,7 +373,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
-
     /**
      * Send message to other device
      *
@@ -540,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        tilt.unregister();
+        //tilt.unregister();
     }
 
     @Override

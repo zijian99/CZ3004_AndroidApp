@@ -24,31 +24,41 @@
 
             <Button
                 android:id="@+id/obstacleN"
-                android:layout_width="200px"
-                android:layout_height="80px"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"/>
+                android:textSize="10dp"
+                android:text="N" />
 
             <Button
                 android:id="@+id/obstacleS"
-                android:layout_width="200px"
-                android:layout_height="80px"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+                android:layout_marginBottom="0dp"
+                android:textSize="10dp"
+                android:text="S" />
 
             <Button
                 android:id="@+id/obstacleW"
-                android:layout_width="80px"
-                android:layout_height="200px"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:textSize="10dp"
+                android:text="W" />
 
             <Button
                 android:id="@+id/obstacleE"
-                android:layout_width="80px"
-                android:layout_height="200px"
+                android:layout_width="39dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
+                android:textSize="10dp"
+                android:text="E" />
 
         </RelativeLayout>
 
