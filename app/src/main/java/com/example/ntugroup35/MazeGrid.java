@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import com.example.ntugroup35.Bluetooth.BluetoothFragment;
 
 public class MazeGrid extends View {
-    // View - basic building block for user interface components
     // dimensions of canvas
     private int width;
     private int height;
@@ -27,8 +26,8 @@ public class MazeGrid extends View {
     private float obstacleSideWidth = 5;
 
     // grid properties
-    private static final int COL = 20; // no. of columns
-    private static final int ROW = 20; //no. of rows
+    private static final int NUMCOL = 20; // no. of columns
+    private static final int NUMROW = 20; //no. of rows
     private static final int padding = 20;
     private static final int border = 5;
 
@@ -59,10 +58,6 @@ public class MazeGrid extends View {
     public static final int obstacleBoxBottom = 16 - 2;
     public static final int obstacleBoxTop = 16;
 
-    // BluetoothFragment for sending strings via bluetooth
-    private final BluetoothFragment fragment = new BluetoothFragment();
-
-    // Constructors
     public MazeGrid(Context context){
         this(context, null);
     }
@@ -87,7 +82,6 @@ public class MazeGrid extends View {
 
     @Override
     protected void onDraw(Canvas canvas){
-        // Called when the view should render its content
         super.onDraw(canvas);
 
         calculateDimensions();
@@ -110,52 +104,48 @@ public class MazeGrid extends View {
     }
 
     private void calculateDimensions(){
-        // get dimension of device and change the view according to dimensions
         int toolbarNumOfCells = 4;
         this.width = getWidth();
         this.height = getHeight();
 //        this.cellWidth = (float) (width - padding*2 - border*2) / (NUMCOL + 1);
-        this.cellWidth = (float) (width - padding*2 - border*2) / (COL + toolbarNumOfCells + 1);
-        this.cellHeight = (float) (height - padding*2 - border*2) / ( + 1);
+        this.cellWidth = (float) (width - padding*2 - border*2) / (NUMCOL + toolbarNumOfCells + 1);
+        this.cellHeight = (float) (height - padding*2 - border*2) / (NUMROW + 1);
         this.adjustX = padding + border + cellWidth;
         this.adjustY = padding + border;
         this.toolbar = toolbarNumOfCells * cellWidth;
     }
 
     private void drawCoordinates(Canvas canvas){
-        // drawing the map
         float offsetX = padding + border + cellWidth;
         float offsetY = padding + border;
-        for (int i = 0; i <= COL; i++){
+        for (int i = 0; i <= NUMCOL; i++){
             canvas.drawLine(offsetX + i * cellWidth, offsetY, offsetX + i * cellWidth,
-                    offsetY + cellHeight * , grayPaint);
+                    offsetY + cellHeight * NUMROW, grayPaint);
         }
 
-        for (int i = 0; i <= ; i++){
-            canvas.drawLine(offsetX, offsetY + i * cellHeight, offsetX + cellWidth * (COL),
+        for (int i = 0; i <= NUMROW; i++){
+            canvas.drawLine(offsetX, offsetY + i * cellHeight, offsetX + cellWidth * (NUMCOL),
                     offsetY + i * cellHeight, grayPaint);
         }
 
         float textSize = this.coordinatesPaint.getTextSize();
-        for (int i = 1; i <= COL; i++){
+        for (int i = 1; i <= NUMCOL; i++){
             canvas.drawText(String.valueOf(i), (float) (offsetX + this.cellWidth * (i - 0.5)), offsetY +
-                    this.cellHeight * (float) ( + 0.7), this.coordinatesPaint);
+                    this.cellHeight * (float) (NUMROW + 0.7), this.coordinatesPaint);
         }
-        for (int i = 1; i <= ; i++){
+        for (int i = 1; i <= NUMROW; i++){
             canvas.drawText(String.valueOf(i), offsetX - this.cellWidth/2, (float) (offsetY +
-                    this.cellHeight * ( - i + 0.5) + textSize/2), this.coordinatesPaint);
+                    this.cellHeight * (NUMROW - i + 0.5) + textSize/2), this.coordinatesPaint);
         }
     }
 
-    // draw Robot on Maze
     private void drawRobot(Canvas canvas, int col, int row, char direction){
-        // create new object and initialise
         Matrix robotBoxMatrix = new Matrix();
         Bitmap robotBoxBitmap = Bitmap.createBitmap(this.robotBoxBitmap,0,0, this.robotBoxBitmap.getWidth(),
                 this.robotBoxBitmap.getHeight(), robotBoxMatrix, true);
         canvas.drawBitmap(robotBoxBitmap, null, new RectF(adjustX + (toolBarLeft - 1) * cellWidth,
-                adjustY + ( - robotBoxTop) * cellHeight, adjustX + toolBarRight * cellWidth,
-                adjustY + ( - robotBoxBottom + 1) * cellHeight), null);
+                adjustY + (NUMROW - robotBoxTop) * cellHeight, adjustX + toolBarRight * cellWidth,
+                adjustY + (NUMROW - robotBoxBottom + 1) * cellHeight), null);
 
         if (row == -1 || col == -1){
             row = 18;
@@ -175,40 +165,39 @@ public class MazeGrid extends View {
         Bitmap rotatedBitmap = Bitmap.createBitmap(robotBitmap,0,0, robotBitmap.getWidth(),
                 robotBitmap.getHeight(), matrix, true);
         canvas.drawBitmap(rotatedBitmap, null, new RectF(adjustX + (col - 1) * cellWidth,
-                adjustY + ( - row- 2) * cellHeight, adjustX + (col + 2) * cellWidth,
-                adjustY + ( - row + 1) * cellHeight), null);
+                adjustY + (NUMROW - row- 2) * cellHeight, adjustX + (col + 2) * cellWidth,
+                adjustY + (NUMROW - row + 1) * cellHeight), null);
 
     }
 
-    // draw Obstacle on maze
     private void drawObstacles(Canvas canvas){
         float textSize = this.whiteNumber.getTextSize();
         Maze maze = Maze.getInstance();
         for (Obstacle obstacle: maze.getObstacles()){
             int x = obstacle.getX();
             int y = obstacle.getY();
-            canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * ( - y), adjustX + x * cellWidth, adjustY + cellHeight * ( - y + 1), blackPaint);
+            canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * (NUMROW - y), adjustX + x * cellWidth, adjustY + cellHeight * (NUMROW - y + 1), blackPaint);
             if (obstacle.isExplored()){
-                canvas.drawText(String.valueOf(obstacle.getTargetID()), adjustX + (float) (x - 1 + 0.5) * cellWidth, adjustY + cellHeight * ( - y) + (cellHeight - textSize)/2 + textSize, exploredWhiteNumber);
+                canvas.drawText(String.valueOf(obstacle.getTargetID()), adjustX + (float) (x - 1 + 0.5) * cellWidth, adjustY + cellHeight * (NUMROW - y) + (cellHeight - textSize)/2 + textSize, exploredWhiteNumber);
             } else{
-                canvas.drawText(String.valueOf(obstacle.getNumberObs()), adjustX + (float) (x - 1 + 0.5) * cellWidth, adjustY + cellHeight * ( - y) + (cellHeight - textSize)/2 + textSize, whiteNumber);
+                canvas.drawText(String.valueOf(obstacle.getNumberObs()), adjustX + (float) (x - 1 + 0.5) * cellWidth, adjustY + cellHeight * (NUMROW - y) + (cellHeight - textSize)/2 + textSize, whiteNumber);
             }
             switch (obstacle.getSide()){
                 case 'N':
-                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * ( - y),
-                            adjustX + x * cellWidth, adjustY + cellHeight * ( - y) + obstacleSideWidth, yellowPaint);
+                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * (NUMROW - y),
+                            adjustX + x * cellWidth, adjustY + cellHeight * (NUMROW - y) + obstacleSideWidth, yellowPaint);
                     break;
                 case 'S':
-                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * ( - y + 1) - obstacleSideWidth,
-                            adjustX + x * cellWidth, adjustY + cellHeight * ( - y + 1), yellowPaint);
+                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * (NUMROW - y + 1) - obstacleSideWidth,
+                            adjustX + x * cellWidth, adjustY + cellHeight * (NUMROW - y + 1), yellowPaint);
                     break;
                 case 'E':
-                    canvas.drawRect(adjustX + x * cellWidth - obstacleSideWidth, adjustY + cellHeight * ( - y),
-                            adjustX + x * cellWidth, adjustY + cellHeight * ( - y + 1), yellowPaint);
+                    canvas.drawRect(adjustX + x * cellWidth - obstacleSideWidth, adjustY + cellHeight * (NUMROW - y),
+                            adjustX + x * cellWidth, adjustY + cellHeight * (NUMROW - y + 1), yellowPaint);
                     break;
                 case 'W':
-                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * ( - y),
-                            adjustX + (x - 1) * cellWidth + obstacleSideWidth, adjustY + cellHeight * ( - y + 1), yellowPaint);
+                    canvas.drawRect(adjustX + (x - 1) * cellWidth, adjustY + cellHeight * (NUMROW - y),
+                            adjustX + (x - 1) * cellWidth + obstacleSideWidth, adjustY + cellHeight * (NUMROW - y + 1), yellowPaint);
                     break;
                 default:
                     break;
@@ -219,8 +208,8 @@ public class MazeGrid extends View {
     private void drawObstacleBox(Canvas canvas){
         Matrix matrix = new Matrix();
         Bitmap bm = Bitmap.createBitmap(obstacleBitmap,0,0, obstacleBitmap.getWidth(), obstacleBitmap.getHeight(), matrix, true);
-        canvas.drawBitmap(bm, null, new RectF(adjustX + (toolBarLeft - 1) * cellWidth, adjustY + ( - obstacleBoxTop) * cellHeight,
-                adjustX + toolBarRight * cellWidth, adjustY + ( - obstacleBoxBottom + 1) * cellHeight), null);
+        canvas.drawBitmap(bm, null, new RectF(adjustX + (toolBarLeft - 1) * cellWidth, adjustY + (NUMROW - obstacleBoxTop) * cellHeight,
+                adjustX + toolBarRight * cellWidth, adjustY + (NUMROW - obstacleBoxBottom + 1) * cellHeight), null);
 
     }
 
@@ -228,7 +217,7 @@ public class MazeGrid extends View {
     final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
         public void onLongPress(MotionEvent event) {
             int selectedX = (int) (((event.getX() - adjustX)/cellWidth) + 1);
-            int selectedY = (int) ( - ((event.getY() - adjustY)/cellHeight) + 1);
+            int selectedY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
             Coordinates obstacle = Maze.getInstance().findObstacle(selectedX, selectedY);
             if (obstacle != null){
                 MainActivity.obstacleDirectionPopup(getContext(), getRootView(), (Obstacle) obstacle);
@@ -242,7 +231,7 @@ public class MazeGrid extends View {
             case MotionEvent.ACTION_DOWN:
                 dragObject = null;
                 firstX = (int) (((event.getX() - adjustX)/cellWidth) + 1);
-                firstY = (int) ( - ((event.getY() - adjustY)/cellHeight) + 1);
+                firstY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
 
                 // Touch robot on map
                 if (MainActivity.robot.containsCoordinate(firstX, firstY)){
@@ -260,7 +249,7 @@ public class MazeGrid extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 int movingX = (int) (((event.getX() - adjustX)/cellWidth) + 1);
-                int movingY = (int) ( - ((event.getY() - adjustY)/cellHeight) + 1);
+                int movingY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
                 if (dragObject instanceof Robot){
                     if ((movingX >= 1 && movingX <= 18) && (movingY >= 1 && movingY <= 18)){
                         MainActivity.robot.setCoordinates(movingX, movingY);
@@ -270,7 +259,7 @@ public class MazeGrid extends View {
                         invalidate();
                     }
                 } else if (dragObject instanceof Obstacle){
-                    if ((movingX >= 1 && movingX <= COL) && (movingY >= 1 && movingY <= )){
+                    if ((movingX >= 1 && movingX <= NUMCOL) && (movingY >= 1 && movingY <= NUMROW)){
                         if (Maze.getInstance().findObstacle(movingX, movingY) == null){
                             dragObject.setCoordinates(movingX, movingY);
                         }
@@ -280,10 +269,11 @@ public class MazeGrid extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 int finalX = (int) (((event.getX() - adjustX)/cellWidth) + 1);
-                int finalY = (int) ( - ((event.getY() - adjustY)/cellHeight) + 1);
+                int finalY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
                 // when robot is drag and drop
                 if (dragObject instanceof Robot){
-                    fragment.sendMsg1("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
+                    MainActivity.outgoingMessage("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
+                    //fragment.sendMsg1("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
                     if ((firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY())
                             || (firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY()+1)
                             || (firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY()+2)
@@ -308,15 +298,15 @@ public class MazeGrid extends View {
                         invalidate();
                     }
                 } else if (dragObject instanceof Obstacle){
-                    if ((finalX < 1 || finalX > COL) || (finalY < 1 || finalY > )){
+                    if ((finalX < 1 || finalX > NUMCOL) || (finalY < 1 || finalY > NUMROW)){
                         Maze.getInstance().removeObstacle((Obstacle) dragObject);
-                        fragment.sendMsg1("Removed Obstacle No. " + ((Obstacle) dragObject).getNumberObs());
+                        MainActivity.outgoingMessage("Removed Obstacle No. " + ((Obstacle) dragObject).getNumberObs());
                     } else {
                         // If finger is released at a square
                         if (!Maze.getInstance().isOccupied(finalX, finalY, (Obstacle) dragObject)) {
                             dragObject.setCoordinates(finalX, finalY);
                         }
-                        fragment.sendMsg1("OB" + ((Obstacle) dragObject).getNumberObs() + "," + dragObject.getX() + "," + dragObject.getY() + ",");
+                        MainActivity.outgoingMessage("OB" + ((Obstacle) dragObject).getNumberObs() + "," + dragObject.getX() + "," + dragObject.getY() + ",");
                     }
                     invalidate();
                 }
@@ -326,12 +316,11 @@ public class MazeGrid extends View {
         return true;
     }
 
-    // set direction obstacle is facing
     public void setObstacleDirection(Obstacle obstacle, char side){
         obstacle.setSide(side);
         char direction = obstacle.getSide();
         // send to RPI to send to algo
-        fragment.sendMsg1("PC," + obstacle.getNumberObs() + "," + obstacle.getX() +
+        MainActivity.outgoingMessage("PC," + obstacle.getNumberObs() + "," + obstacle.getX() +
                 "," + obstacle.getY() + "," + directionTo1234(direction, "0"));
         invalidate();
     }

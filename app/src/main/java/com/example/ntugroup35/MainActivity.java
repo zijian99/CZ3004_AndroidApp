@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
      * Robot instance
      */
     static Robot robot = new Robot();
+    private static BluetoothFragment fragment;
     /**
      * Tilt class
      */
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Fragment for bluetooth message
      */
-    BluetoothFragment fragment;
+    //BluetoothFragment fragment;
     /**
      * Sensor Manager for tilting
      */
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             fragment = new BluetoothFragment();
             transaction.replace(R.id.textBox, fragment);
             transaction.commit();
+
         }
 
         // Move forward
@@ -277,80 +279,87 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.manual).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                outgoingMessage("sendArena");
+            }
+        });
 
-
-        Switch s = (Switch) findViewById(R.id.tiltSwitch);
-        sensorManager = (SensorManager) getSystemService(AppCompatActivity.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Switch s = (Switch) findViewById(R.id.autoUpdateSwitch);
+//        sensorManager = (SensorManager) getSystemService(AppCompatActivity.SENSOR_SERVICE);
+//        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-                    tiltCheck =true;
+//                    tiltCheck =true;
+                    outgoingMessage("Auto Update Arena");
                     onResume();
-                    tilt.register();
+//                    tilt.register();
                 } else {
                     // The toggle is disabled
-                    tiltCheck =false;
+                    outgoingMessage("Manual Update Arena");
+//                    tiltCheck =false;
                     onPause();
                 }
             }
         });
 
-        tilt.setListener(new Tilt.Listener() {
-            @Override
-            public void onRotation(float rotateX, float rotateY, float rotateZ) {
-                if(rotateX <-1.0f){
-                    if(listen.getValue() !="Move" ){
-                        listen.setValue("Move");
-                    }
-                }
-                else if (rotateX >1.0f){
-                    if(listen.getValue() != "Default" ){
-                        listen.setValue("Default");
-                    }
-                }
-                else if(rotateZ <-1.0f){
-                    if(listen.getValue() !="Right" ){
-                        listen.setValue("Right");
-                    }
-                }
-                else if (rotateZ >1.0f){
-                    if(listen.getValue() !="Left" ){
-                        listen.setValue("Left");
-                    }
-                }
-            }
-        });
+//        tilt.setListener(new Tilt.Listener() {
+//            @Override
+//            public void onRotation(float rotateX, float rotateY, float rotateZ) {
+//                if(rotateX <-1.0f){
+//                    if(listen.getValue() !="Move" ){
+//                        listen.setValue("Move");
+//                    }
+//                }
+//                else if (rotateX >1.0f){
+//                    if(listen.getValue() != "Default" ){
+//                        listen.setValue("Default");
+//                    }
+//                }
+//                else if(rotateZ <-1.0f){
+//                    if(listen.getValue() !="Right" ){
+//                        listen.setValue("Right");
+//                    }
+//                }
+//                else if (rotateZ >1.0f){
+//                    if(listen.getValue() !="Left" ){
+//                        listen.setValue("Left");
+//                    }
+//                }
+//            }
+//        });
 
 
 
-        listen.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if(s == "Move"){
-                    if (robot.getX() != -1 && robot.getY() != -1) {
-                        robot.moveRobotForward();
-                        mazeGrid.invalidate();
-                        textX.setText(String.valueOf(robot.getX()));
-                        textY.setText(String.valueOf(robot.getY()));
-                        textDirection.setText(String.valueOf(robot.getDirection()));
-                    }
-                    Log.d("MainActivity", "Move");
-                }else if (s=="Left"){
-                    if (robot.getX() != -1 && robot.getY() != -1) {
-                        robot.moveRobotTurnLeft();
-                        mazeGrid.invalidate();
-                        textX.setText(String.valueOf(robot.getX()));
-                        textY.setText(String.valueOf(robot.getY()));
-                        textDirection.setText(String.valueOf(robot.getDirection()));
-                    }
-                    Log.d("MainActivity", "Left");
-                }else{
-                    Log.d("MainActivity", "Change value: " + s);
-                }
-            }
-        });
+//        listen.observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String s) {
+//                if(s == "Move"){
+//                    if (robot.getX() != -1 && robot.getY() != -1) {
+//                        robot.moveRobotForward();
+//                        mazeGrid.invalidate();
+//                        textX.setText(String.valueOf(robot.getX()));
+//                        textY.setText(String.valueOf(robot.getY()));
+//                        textDirection.setText(String.valueOf(robot.getDirection()));
+//                    }
+//                    Log.d("MainActivity", "Move");
+//                }else if (s=="Left"){
+//                    if (robot.getX() != -1 && robot.getY() != -1) {
+//                        robot.moveRobotTurnLeft();
+//                        mazeGrid.invalidate();
+//                        textX.setText(String.valueOf(robot.getX()));
+//                        textY.setText(String.valueOf(robot.getY()));
+//                        textDirection.setText(String.valueOf(robot.getDirection()));
+//                    }
+//                    Log.d("MainActivity", "Left");
+//                }else{
+//                    Log.d("MainActivity", "Change value: " + s);
+//                }
+//            }
+//        });
     }
 
     /**
@@ -358,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param sendMsg Message need to be sent
      */
-    public void outgoingMessage(String sendMsg) {
+    public static void outgoingMessage(String sendMsg) {
         fragment.sendMsg(sendMsg);
     }
 

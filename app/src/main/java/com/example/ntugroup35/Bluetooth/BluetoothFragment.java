@@ -115,7 +115,7 @@ public class BluetoothFragment extends Fragment {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
             // Otherwise, setup the chat session
-        } else if (mChatService == null) {
+        } else {
             setupChat();
         }
     }
@@ -217,7 +217,7 @@ public class BluetoothFragment extends Fragment {
     public void sendMsg1(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService != null && mChatService.getState() == BluetoothService.STATE_CONNECTED) {
-            Toast.makeText(getActivity(), R.string.not_connected,
+            Toast.makeText(getActivity(), R.string.not_connected_sendMsg,
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -227,8 +227,10 @@ public class BluetoothFragment extends Fragment {
             // Get the message bytes and tell the BluetoothService to write
             byte[] send = message.getBytes();
             try{
+
                 mChatService.write(send);}
             catch (Exception e){
+                Log.e("BlueFrag",message);
                 Log.e("BlueFrag",e.toString());
             }
 
@@ -254,8 +256,12 @@ public class BluetoothFragment extends Fragment {
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothService.STATE_CONNECTED) {
-            Toast.makeText(getActivity(), R.string.not_connected,
-                    Toast.LENGTH_SHORT).show();
+            try{
+            Toast.makeText(getActivity(), R.string.not_connected_sendMsg,
+                    Toast.LENGTH_SHORT).show();}
+            catch(Exception e){
+                Log.e(TAG,e.toString());
+            }
         }
 
         // Check that there's actually something to send
