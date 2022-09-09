@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
      */
     static Robot robot = new Robot();
     private static BluetoothFragment fragment;
-    /**
-     * Tilt class
-     */
-    private Tilt tilt;
-    /**
-     * Mutable Live Data
-     */
-    MutableLiveData<String> listen = new MutableLiveData<>();
+//    /**
+//     * Tilt class
+//     */
+//    private Tilt tilt;
+//    /**
+//     * Mutable Live Data
+//     */
+//    MutableLiveData<String> listen = new MutableLiveData<>();
     /**
      * Text View for x coordinate
      */

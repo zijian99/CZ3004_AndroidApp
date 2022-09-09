@@ -63,12 +63,13 @@
 
             <Button
                 android:id="@+id/manual"
-                android:layout_width="112dp"
-                android:layout_height="61dp"
+                android:layout_width="226dp"
+                android:layout_height="51dp"
                 android:text="Get Arena Details"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="@id/maze"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintTop_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -305,7 +305,7 @@ public class BluetoothService {
                 if (secure) {
                     tmp = mAdapter.listenUsingRfcommWithServiceRecord(NAME_SECURE,
                             MY_UUID_SECURE);
-                    Toast.makeText(context,"Trying to connect....",Toast.LENGTH_SHORT);
+
                 } else {
                     tmp = mAdapter.listenUsingInsecureRfcommWithServiceRecord(
                             NAME_INSECURE, MY_UUID_INSECURE);

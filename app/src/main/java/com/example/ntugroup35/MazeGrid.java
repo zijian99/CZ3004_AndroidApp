@@ -83,7 +83,7 @@ public class MazeGrid extends View {
         coordinatesPaint.setTextSize(20);
         coordinatesPaint.setTextAlign(Paint.Align.CENTER);
         whiteNumber.setColor(Color.WHITE);
-        whiteNumber.setTextSize(20);
+        whiteNumber.setTextSize(10);
         whiteNumber.setTextAlign(Paint.Align.CENTER);
         yellowPaint.setColor(Color.YELLOW);
         exploredWhiteNumber.setColor(Color.WHITE);
