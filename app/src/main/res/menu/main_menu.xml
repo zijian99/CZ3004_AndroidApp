@@ -13,4 +13,8 @@
         android:id="@+id/discoverable"
         android:title="@string/discoverable"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/manual"
+        android:title="Get Arena Details"
+        app:showAsAction="never" />
 </menu>

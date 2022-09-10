@@ -277,6 +277,48 @@ public class Robot implements Coordinates {
         }
     }
     /**
+     * Make robot turn a hard left
+     */
+    // "Q"
+    public void moveRobotHardLeftReverse(){
+        if (this.x != -1 && this.y != -1){
+            char robotDirection = this.getDirection();
+            if (robotDirection == 'N'){
+                int newX = this.x - 3;
+                int newY = this.y - 3;
+                if (newX >= 1 && newY >= 1){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('E');}
+            }
+            else if (robotDirection == 'S'){
+                int newX = this.x + 3;
+                int newY = this.y + 3;
+                if (newX <= 18 && newY <= 18){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('W');}
+            }
+            else if (robotDirection == 'E'){
+                int newX = this.x - 3;
+                int newY = this.y + 3;
+                if (newX >= 1 && newY <= 18){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('S');}
+            }
+            else{
+                //W
+                int newX = this.x + 3;
+                int newY = this.y - 3;
+                if (newX <= 18 && newY >= 1){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('N');}
+            }
+        }
+    }
+    /**
      * Make robot turn a hard right
      */
     // "E"
@@ -315,6 +357,44 @@ public class Robot implements Coordinates {
                     this.setX(newX);
                     this.setY(newY);
                     this.setDirection('N');}
+            }
+        }
+    }
+    public void moveRobotHardRightReverse(){
+        if (this.x != -1 && this.y != -1){
+            char robotDirection = this.getDirection();
+            if (robotDirection == 'N'){
+                int newX = this.x + 3;
+                int newY = this.y - 3;
+                if (newX <= 18 && newY >= 1){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('W');}
+            }
+            else if (robotDirection == 'S'){
+                int newX = this.x - 3;
+                int newY = this.y + 3;
+                if (newX >= 1 && newY <= 18){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('E');}
+            }
+            else if (robotDirection == 'E'){
+                int newX = this.x - 3;
+                int newY = this.y - 3;
+                if (newX >= 1 && newY >= 1){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('N');}
+            }
+            else{
+                //W
+                int newX = this.x + 3;
+                int newY = this.y + 3;
+                if (newX <= 18 && newY <= 18){
+                    this.setX(newX);
+                    this.setY(newY);
+                    this.setDirection('S');}
             }
         }
     }

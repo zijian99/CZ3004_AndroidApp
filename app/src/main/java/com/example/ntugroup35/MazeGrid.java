@@ -75,6 +75,7 @@ public class MazeGrid extends View {
      */
     public MazeGrid(Context context, AttributeSet attrs){
         super(context, attrs);
+        //setup all the color attribute
         whitePaint.setColor(Color.WHITE);
         whitePaint.setShadowLayer(border, 0, 0, Color.GRAY);
         grayPaint.setColor(Color.DKGRAY);

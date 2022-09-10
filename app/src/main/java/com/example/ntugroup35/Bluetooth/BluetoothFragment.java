@@ -61,7 +61,9 @@ public class BluetoothFragment extends Fragment {
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+    public BluetoothFragment(){
 
+    }
     /**
      * Name of the connected device
      */
@@ -331,6 +333,7 @@ public class BluetoothFragment extends Fragment {
     /**
      * The Handler that gets information back from the BluetoothService
      */
+    @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -503,6 +506,10 @@ public class BluetoothFragment extends Fragment {
             case R.id.discoverable: {
                 // Ensure this device is discoverable by others
                 ensureDiscoverable();
+                return true;
+            }
+            case R.id.manual:{
+                sendMsg("sendArena");
                 return true;
             }
         }

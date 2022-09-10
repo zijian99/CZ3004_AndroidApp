@@ -1,7 +1,13 @@
 package com.example.ntugroup35;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -9,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,11 +25,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.ntugroup35.Bluetooth.BluetoothFragment;
+import com.example.ntugroup35.Bluetooth.DeviceList;
 
 public class MainActivity extends AppCompatActivity {
     /**
@@ -74,17 +85,25 @@ public class MainActivity extends AppCompatActivity {
      * Sensor Manager for tilting
      */
     private SensorManager sensorManager;
+    private final int LOCATION_PERMISSION_REQUEST = 101;
+    // Intent request codes from device list activity
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+    private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
 
+    private BluetoothAdapter mBluetoothAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Bundle a= new Bundle();
+        
 //        listen.setValue("Default");
 //        tilt = new Tilt(this);
 
         init();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         // Remove shadow of action bar
         getSupportActionBar().setElevation(0);
         // Set layout to shift up when soft keyboard is open
@@ -199,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 robot.moveRobotTurnLeft();
                 mazeGrid.invalidate();
                 String navigation = null;
-                navigation = "STM,D";
+                navigation = "STM,A";
                 outgoingMessage(navigation);
                 robot.setStatus("Turn Left");
                 textRobotStatus.setText(robot.getStatus());
@@ -224,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 robot.moveRobotTurnRight();
                 mazeGrid.invalidate();
                 String navigation = null;
-                navigation = "STM,A";
+                navigation = "STM,D";
                 outgoingMessage(navigation);
                 robot.setStatus("Turn Right");
                 textRobotStatus.setText(robot.getStatus());
@@ -291,12 +310,62 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        findViewById(R.id.manual).setOnClickListener(new View.OnClickListener() {
+        // Hard right
+        findViewById(R.id.btnHardRightReverse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                outgoingMessage("sendArena");
-            }
-        });
+                robot.moveRobotHardRightReverse();
+//                robot.moveRobotHardRight();
+                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,E";
+//                outgoingMessage(navigation);
+                robot.setStatus("Hard Right Reverse");
+                textRobotStatus.setText(robot.getStatus());
+                //Toast.makeText(MainActivity.this, "Hard Right",
+                //      Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getX()));
+//                    textY.setText(String.valueOf(robot.getY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
+//            }
+        }});
+        // Hard right
+        findViewById(R.id.btnHardLeftReverse).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                robot.moveRobotHardLeftReverse();
+//                robot.moveRobotHardRight();
+                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,E";
+//                outgoingMessage(navigation);
+                robot.setStatus("Hard Left Reverse");
+                textRobotStatus.setText(robot.getStatus());
+                //Toast.makeText(MainActivity.this, "Hard Right",
+                //      Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getX()));
+//                    textY.setText(String.valueOf(robot.getY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
+//            }
+            }});
+//        findViewById(R.id.manual).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                outgoingMessage("sendArena");
+//            }
+//        });
 
         Switch s = (Switch) findViewById(R.id.autoUpdateSwitch);
 //        sensorManager = (SensorManager) getSystemService(AppCompatActivity.SENSOR_SERVICE);
@@ -543,6 +612,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         //gyroscope.register();
@@ -554,10 +629,6 @@ public class MainActivity extends AppCompatActivity {
         //tilt.unregister();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
 
 }
