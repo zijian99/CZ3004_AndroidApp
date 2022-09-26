@@ -35,6 +35,9 @@ import androidx.lifecycle.Observer;
 import com.example.ntugroup35.Bluetooth.BluetoothFragment;
 import com.example.ntugroup35.Bluetooth.DeviceList;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     /**
      * Tag for log in Main Activity
@@ -146,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.arenaObstacles).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                robot.setStatus("Start exploring the 20x20 arena.");
+                robot.setStatus("Sending List of Obstacle Coordinates");
                 textRobotStatus.setText(robot.getStatus());
+                outgoingMessage(getObstacleCoords());
                 outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
             }});
 
@@ -159,6 +163,17 @@ public class MainActivity extends AppCompatActivity {
                 textRobotStatus.setText(robot.getStatus());
                 outgoingMessage("STM,I"); //send message to RPI to let them know robot may start moving
             }});
+
+        // send list of obstacles
+//        findViewById(R.id.getObstacleCoord).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                robot.setStatus("Sending List of Obstacle Coordinates");
+//                textRobotStatus.setText(robot.getStatus());
+//                outgoingMessage(getObstacleCoords());
+//            }
+//        });
+
         // Move forward
         findViewById(R.id.btnForward).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -600,6 +615,30 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public static String getObstacleCoords(){
+
+        ArrayList<Obstacle> obstacleArrayListList = Maze.getInstance().getObstacles();
+        String obstacleString = "The coordinates of all obstacles: ";
+        Log.d(TAG, String.valueOf(obstacleArrayListList));
+
+        for (Obstacle obstacle : Maze.getInstance().getObstacles()) {
+            obstacleString += obstacle.getX() +  "," + obstacle.getY() + "/";
+        }
+
+        return obstacleString;
+
+
+//        while (int i = 0; i < Maze.getInstance().getObstacles().size())
+//
+//        if (1 <= obstacleNumber && obstacleNumber <= Maze.getInstance().getObstacles().size()){
+//            Obstacle obstacle = Maze.getInstance().getObstacles().get(obstacleNumber - 1);
+//            obstacle.explore(targetID);
+//            mazeGrid.invalidate();
+//            return true;
+//        }
+//        return false;
     }
 
     /**
