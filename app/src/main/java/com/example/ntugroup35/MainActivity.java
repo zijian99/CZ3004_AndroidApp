@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -25,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,6 +40,8 @@ import com.example.ntugroup35.Bluetooth.DeviceList;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     /**
@@ -72,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
      * Text View for robot status
      */
     public static TextView textRobotStatus;
+    /**
+     * Whether tilt is on
+     */
+    public static TextView textTimer;
+    public static Timer timer;
+    public static TimerTask timerTask;
+    public static Double time=0.0;
+    public static Boolean timeStarted=false;
     /**
      * Whether tilt is on
      */
@@ -139,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Update Robot Status
         textRobotStatus = findViewById(R.id.textRobotStatus);
+        textTimer = findViewById(R.id.textTimer);
+        timer = new Timer();
     }
 
     /**
@@ -149,19 +164,35 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.arenaObstacles).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(time!=0.0)
+                {
+                    Toast.makeText(MainActivity.this, "Please reset timer to start the task", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
                 robot.setStatus("Sending List of Obstacle Coordinates");
                 textRobotStatus.setText(robot.getStatus());
                 outgoingMessage(getObstacleCoords());
                 outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
+                startTimer();}
+
             }});
 
         //Start fastest robot
         findViewById(R.id.fastestRobot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                robot.setStatus("Start fastest robot parking.");
-                textRobotStatus.setText(robot.getStatus());
-                outgoingMessage("STM,I"); //send message to RPI to let them know robot may start moving
+                if(time!=0.0)
+                {
+                    Toast.makeText(MainActivity.this, "Please reset timer to start the task", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    robot.setStatus("Start fastest robot parking.");
+                    textRobotStatus.setText(robot.getStatus());
+                    outgoingMessage("STM,I"); //send message to RPI to let them know robot may start moving
+                    resetTimer();
+                    startTimer();
+                }
             }});
 
         // send list of obstacles
@@ -390,13 +421,15 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
                     // The toggle is enabled
 //                    tiltCheck =true;
-                    outgoingMessage("Auto Update Arena");
+                    //outgoingMessage("Auto Update Arena");
+                    startTimer();
                     onResume();
 //                    tilt.register();
                 } else {
                     // The toggle is disabled
-                    outgoingMessage("Manual Update Arena");
+                    //outgoingMessage("Manual Update Arena");
 //                    tiltCheck =false;
+                    stopTimer();
                     onPause();
                 }
             }
@@ -456,6 +489,67 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+    }
+    private void startTimer()
+    {
+        if(timeStarted==true)
+        {
+            Toast.makeText(this, "Task has started", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        timeStarted=true;
+        timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        time++;
+
+                        textTimer.setText(getTimerText());
+                    }
+                });
+            }
+
+        };
+        timer.scheduleAtFixedRate(timerTask, 0 ,1000);
+    }
+
+    private String getTimerText() {
+        int rounded = (int) Math.round(time);
+
+        int seconds = ((rounded % 86400) % 3600) % 60;
+        int minutes = ((rounded % 86400) % 3600) / 60;
+        int hours = ((rounded % 86400) / 3600);
+
+        return formatTime(seconds, minutes, hours);
+    }
+    private static String formatTime(int seconds, int minutes, int hours)
+    {
+        return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
+    }
+
+    public void stopTimer(){
+        if(timerTask==null)
+            return;
+        timerTask.cancel();
+        timeStarted=false;
+    }
+    public static void resetTimer()
+    {
+        if(timerTask==null)
+            return;
+        timerTask.cancel();
+        textTimer.setText("00:00:00");
+        time=0.0;
+        timeStarted=false;
+
+
+
     }
     /**
      * Send message to other device

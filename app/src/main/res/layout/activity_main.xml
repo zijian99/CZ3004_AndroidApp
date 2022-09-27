@@ -22,8 +22,8 @@
 
             <com.example.ntugroup35.MazeGrid
                 android:id="@+id/maze"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="800dp"
+                android:layout_height="654dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1.2:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -172,6 +172,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="100dp"
                             android:stateListAnimator="@null" />
+
                         <ImageView
                             android:id="@+id/iv_dpad"
                             android:layout_width="220dp"
@@ -203,18 +204,18 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="2"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:background="@drawable/lightpurple_box" >
+                        android:layout_weight="2"
+                        android:background="@drawable/lightpurple_box"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/position"
                             android:textColor="@color/darkblue"
-                            android:textStyle="bold"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -224,17 +225,17 @@
                             <RelativeLayout
                                 android:id="@+id/xLayout"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/x"
-                                    android:textStyle="bold"
                                     android:textColor="@color/darkblue"
-                                    android:textSize="12sp" />
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/textX"
@@ -251,27 +252,27 @@
                             <RelativeLayout
                                 android:id="@+id/yLayout"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/y"
-                                    android:textStyle="bold"
+                                    android:textColor="@color/darkblue"
                                     android:textSize="12sp"
-                                    android:textColor="@color/darkblue"/>
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/textY"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="-"
-                                    android:textStyle="bold"
                                     android:layout_centerInParent="true"
+                                    android:text="-"
+                                    android:textColor="@color/darkblue"
                                     android:textSize="14sp"
-                                    android:textColor="@color/darkblue"/>
+                                    android:textStyle="bold" />
 
                             </RelativeLayout>
 
@@ -281,30 +282,30 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:background="@drawable/lightpurple_box"
                         android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp">
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/lightpurple_box"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/direction"
                             android:textColor="@color/darkblue"
-                            android:textStyle="bold"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textDirection"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="-"
                             android:textColor="@color/darkblue"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -317,10 +318,10 @@
                             android:id="@+id/switchTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Auto Update:"
-                            android:textSize="11sp"
+                            android:text="Timer Button"
                             android:textColor="@color/darkblue"
-                            android:textStyle="bold"/>
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
                         <Switch
                             android:id="@+id/autoUpdateSwitch"
@@ -334,36 +335,67 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/lightpurple_box"
-                    android:layout_marginTop="5dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="11sp"
-                        android:textColor="@color/darkblue"
-                        android:textStyle="bold"
-                        android:text="@string/robotStatus"/>
+                    <LinearLayout
+                        android:layout_width="241dp"
+                        android:layout_height="74dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/lightpurple_box"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textRobotStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/robotStatus"
+                            android:textColor="@color/darkblue"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/textRobotStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="219dp"
+                        android:layout_height="75dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/lightpurple_box"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Timer"
+                            android:textColor="@color/darkblue"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textTimer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="00:00:00"
+                            android:textSize="30dp" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/textBox"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/lightpurple_box"
-                    android:orientation="vertical"
-                    android:layout_marginTop="5dp">
+                    android:orientation="vertical">
 
                 </FrameLayout>
 

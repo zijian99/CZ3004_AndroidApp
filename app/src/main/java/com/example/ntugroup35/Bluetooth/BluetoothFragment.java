@@ -512,6 +512,8 @@ public class BluetoothFragment extends Fragment {
                 sendMsg("sendArena");
                 return true;
             }
+            case R.id.resetTimer:
+                MainActivity.resetTimer();
         }
         return false;
     }
