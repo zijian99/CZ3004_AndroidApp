@@ -61,6 +61,7 @@ public class BluetoothFragment extends Fragment {
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+    private BluetoothDevice lastDevice;
     public BluetoothFragment(){
 
     }
@@ -387,6 +388,11 @@ public class BluetoothFragment extends Fragment {
                                 messageIsCommand = true;
                             }
                         }
+                        else if(splitString.length == 4 && isInteger(splitString[1]) && isInteger(splitString[2]) && isInteger(splitString[3])){
+                            if (MainActivity.exploreTargetViaCoordinates(Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2]),Integer.parseInt(splitString[3]))){
+                                messageIsCommand = true;
+                            }
+                        }
                     }
                     else if (readMessage.equals("W")){
                         MainActivity.setRobotPositionEXForward();
@@ -476,6 +482,7 @@ public class BluetoothFragment extends Fragment {
         String address = extras.getString(DeviceList.EXTRA_DEVICE_ADDRESS);
         // Get the BluetoothDevice object
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        lastDevice = device;
         // Attempt to connect to the device
         mChatService.connect(device, secure);
     }
@@ -512,8 +519,16 @@ public class BluetoothFragment extends Fragment {
                 sendMsg("sendArena");
                 return true;
             }
-            case R.id.resetTimer:
+            case R.id.resetTimer: {
                 MainActivity.resetTimer();
+                return true;
+            }
+            case R.id.reconnectDevice:{
+                if(lastDevice!=null)
+                    mChatService.connect(lastDevice, true);
+                else
+                    Toast.makeText(getActivity(), "There is no previously connected device", Toast.LENGTH_SHORT).show();
+            }
         }
         return false;
     }

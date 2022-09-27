@@ -627,7 +627,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public static boolean exploreTargetViaCoordinates(int x,int y, int targetID){
+        // if obstacle number exists in map
+        int obstacleNumber=Maze.getInstance().findObstacleNumber(x,y);
+        if (1 <= obstacleNumber && obstacleNumber <= Maze.getInstance().getObstacles().size()){
+            Obstacle obstacle = Maze.getInstance().getObstacles().get(obstacleNumber - 1);
+            obstacle.explore(targetID);
+            mazeGrid.invalidate();
+            return true;
+        }
+        return false;
+    }
     /**
      * Set the robot position
      *
