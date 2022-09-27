@@ -23,7 +23,7 @@
             <com.example.ntugroup35.MazeGrid
                 android:id="@+id/maze"
                 android:layout_width="match_parent"
-                android:layout_height="654dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1.2:1"
                 app:layout_constraintStart_toStartOf="parent"

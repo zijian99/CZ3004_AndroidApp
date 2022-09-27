@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 /**
@@ -47,7 +49,7 @@ public class BluetoothService {
     private ConnectedThread mConnectedThread;
     private int mState;
     private int mNewState;
-
+    private BluetoothDevice lastDevice;
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -186,6 +188,7 @@ public class BluetoothService {
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
+        lastDevice=device;
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
@@ -280,10 +283,31 @@ public class BluetoothService {
         // Update UI title
         updateUserInterfaceTitle();
 
-
         // Start the service over to restart listening mode
         BluetoothService.this.start();
+        int delay = 10000;// in ms
+
+        Timer timer = new Timer();
+
+        timer.schedule( new TimerTask(){
+            public void run() {
+                connect(lastDevice,true);
+            }
+        }, delay);
+
+        //reconnectFailed();
     }
+//    private void reconnectFailed(){
+//        Message msg1 = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
+//        Bundle bundle1 = new Bundle();
+//        bundle1.putString(Constants.TOAST, "Please Manually Reconnect the Device Again");
+//        msg1.setData(bundle1);
+//        mHandler.sendMessage(msg1);
+//        mState = STATE_NONE;
+//        // Update UI title
+//        updateUserInterfaceTitle();
+//        BluetoothService.this.start();
+//    }
 
     /**
      * This thread runs while listening for incoming connections. It behaves
