@@ -588,7 +588,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param obstacleNumber number of obstacle
      * @param targetID obstacle target id
-     *
+     **
      * @return boolean
      */
     public static boolean exploreTarget(int obstacleNumber, int targetID){
@@ -601,7 +601,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    public static boolean exploreTargetViaCoordinates(int x,int y, int targetID){
+        // if obstacle number exists in map
+        int obstacleNumber=Maze.getInstance().findObstacleNumber(x,y);
+        if (1 <= obstacleNumber && obstacleNumber <= Maze.getInstance().getObstacles().size()){
+            Obstacle obstacle = Maze.getInstance().getObstacles().get(obstacleNumber - 1);
+            obstacle.explore(targetID);
+            mazeGrid.invalidate();
+            return true;
+        }
+        return false;
+    }
     /**
      * Update robot status and on view
      * @param status status of the robot

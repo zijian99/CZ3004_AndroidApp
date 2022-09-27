@@ -17,4 +17,8 @@
         android:id="@+id/manual"
         android:title="Get Arena Details"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/reconnectDevice"
+        android:title="Reconnect Last Device"
+        app:showAsAction="never" />
 </menu>

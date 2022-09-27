@@ -47,7 +47,7 @@ public class BluetoothService {
     private ConnectedThread mConnectedThread;
     private int mState;
     private int mNewState;
-
+    private BluetoothDevice lastDevice;
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -145,6 +145,7 @@ public class BluetoothService {
 
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device, secure);
+        //lastDevice=device;
         mConnectThread.start();
         // Update UI title
         updateUserInterfaceTitle();
@@ -283,6 +284,7 @@ public class BluetoothService {
 
         // Start the service over to restart listening mode
         BluetoothService.this.start();
+        //connect(lastDevice,true);
     }
 
     /**

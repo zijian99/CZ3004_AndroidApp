@@ -73,7 +73,14 @@ public class Maze {
         }
         return null;
     }
-
+    public int findObstacleNumber(int x, int y){
+        for (Obstacle obstacle: this.obstacles){
+            if (obstacle.containsCoordinate(x, y)){
+                return obstacle.getNumberObs();
+            }
+        }
+        return -1;
+    }
     /**
      * Check position is occupied by the obstacle
      * @param x
