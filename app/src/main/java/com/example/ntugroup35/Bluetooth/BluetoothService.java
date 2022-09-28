@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 /**
@@ -292,6 +294,16 @@ public class BluetoothService {
 
         int delay = 2000;// in ms
         int tryCount=0;
+        Timer timer = new Timer();
+        timer.schedule( new TimerTask(){
+            public void run() {
+                connect(lastDevice,true);
+            }
+            }, delay);
+
+//        if(connected==false)
+//            reconnectFailed();
+
     }
 
     /**
