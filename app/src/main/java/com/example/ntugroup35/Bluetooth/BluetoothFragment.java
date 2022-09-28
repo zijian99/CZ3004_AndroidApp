@@ -35,6 +35,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.ntugroup35.MainActivity;
+import com.example.ntugroup35.Maze;
+import com.example.ntugroup35.MazeGrid;
 import com.example.ntugroup35.R;
 import com.example.ntugroup35.Robot;
 
@@ -182,13 +184,23 @@ public class BluetoothFragment extends Fragment {
         // Initialize the send button with a listener that for click events
         mSendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Send a message using content of the edit text widget
-                View view = getView();
-                if (view!= null) {
-                    TextView textView = view.findViewById(R.id.edit_text_out);
-                    String message = textView.getText().toString();
-                    sendMessage(message);
+                if(MainActivity.getTimeStarted())
+                {
+                    // Reset out string buffer to zero and clear the edit text field
+                    mOutStringBuffer.setLength(0);
+                    mOutEditText.setText(mOutStringBuffer);
+                    Toast.makeText(activity, "Task has started. Please do not send additional info.", Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    // Send a message using content of the edit text widget
+                    View view = getView();
+                    if (view!= null) {
+                        TextView textView = view.findViewById(R.id.edit_text_out);
+                        String message = textView.getText().toString();
+                        sendMessage(message);
+                    }
+                }
+
             }
         });
 
@@ -373,8 +385,8 @@ public class BluetoothFragment extends Fragment {
                         String[] splitString = readMessage.split(",");
                         if (splitString.length == 4 && isInteger(splitString[1]) &&
                                 isInteger(splitString[2]) && splitString[3].length() == 1){
-                            if (MainActivity.setRobotPosition(Integer.parseInt(splitString[1]),
-                                    Integer.parseInt(splitString[2]), splitString[3].charAt(0))){
+                            if (MainActivity.setRobotPosition(Integer.parseInt(splitString[1])-1,
+                                    Integer.parseInt(splitString[2])-1, splitString[3].charAt(0))){
                                 messageIsCommand = true;
                             }
                         } else if (splitString.length == 2){
@@ -393,6 +405,10 @@ public class BluetoothFragment extends Fragment {
                                 messageIsCommand = true;
                             }
                         }
+                    }
+                    else if (readMessage.equals("TASK,END")){
+                        MainActivity.stopTimer();
+                        Toast.makeText(activity, "Task has ended.", Toast.LENGTH_SHORT).show();
                     }
                     else if (readMessage.equals("W")){
                         MainActivity.setRobotPositionEXForward();
@@ -528,6 +544,11 @@ public class BluetoothFragment extends Fragment {
                     mChatService.connect(lastDevice, true);
                 else
                     Toast.makeText(getActivity(), "There is no previously connected device", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.resetMap:{
+                MainActivity.clearMap();
+                return true;
             }
         }
         return false;

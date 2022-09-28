@@ -50,6 +50,7 @@ public class BluetoothService {
     private int mState;
     private int mNewState;
     private BluetoothDevice lastDevice;
+    private Boolean connected=false;
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -189,6 +190,7 @@ public class BluetoothService {
         mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
         lastDevice=device;
+        connected=true;
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
@@ -226,6 +228,7 @@ public class BluetoothService {
             mInsecureAcceptThread = null;
         }
         mState = STATE_NONE;
+        connected=false;
         // Update UI title
         updateUserInterfaceTitle();
     }
@@ -258,7 +261,7 @@ public class BluetoothService {
         bundle.putString(Constants.TOAST, "Unable to connect device");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-
+        connected=false;
         mState = STATE_NONE;
         // Update UI title
         updateUserInterfaceTitle();
@@ -278,22 +281,24 @@ public class BluetoothService {
         bundle.putString(Constants.TOAST, "Device connection was lost. Reconnecting...");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-
+        connected=false;
         mState = STATE_NONE;
         // Update UI title
         updateUserInterfaceTitle();
 
         // Start the service over to restart listening mode
         BluetoothService.this.start();
-        int delay = 10000;// in ms
+
+        int delay = 3000;// in ms
 
         Timer timer = new Timer();
-
+        for(int i=1;i<=3;i++){
         timer.schedule( new TimerTask(){
             public void run() {
-                connect(lastDevice,true);
+                if(!connected)
+                    connect(lastDevice,true);
             }
-        }, delay);
+        }, delay*i);}
 
         //reconnectFailed();
     }

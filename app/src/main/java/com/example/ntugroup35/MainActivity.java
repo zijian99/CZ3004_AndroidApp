@@ -172,8 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                 robot.setStatus("Sending List of Obstacle Coordinates");
                 textRobotStatus.setText(robot.getStatus());
-                outgoingMessage(getObstacleCoords());
-                outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
+                outgoingMessage("taskOne/"+getObstacleCoords());
+                //outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
                 startTimer();}
 
             }});
@@ -219,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Move forward",
                 //   Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1) {
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 } else {
                     textX.setText("-");
@@ -245,8 +245,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Move backward",
                 //   Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1) {
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 } else {
                     textX.setText("-");
@@ -261,24 +261,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnLeft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                robot.moveRobotTurnLeft();
-                mazeGrid.invalidate();
-                String navigation = null;
-                navigation = "STM,A";
-                outgoingMessage(navigation);
-                robot.setStatus("Turn Left");
-                textRobotStatus.setText(robot.getStatus());
-                //Toast.makeText(MainActivity.this, "Turn Left",
-                //       Toast.LENGTH_SHORT).show();
-                if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
-                    textDirection.setText(String.valueOf(robot.getDirection()));
-                }else{
-                    textX.setText("-");
-                    textY.setText("-");
-                    textDirection.setText("-");
-                }
+                Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
+//                robot.moveRobotTurnLeft();
+//                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,A";
+//                outgoingMessage(navigation);
+//                robot.setStatus("Turn Left");
+//                textRobotStatus.setText(robot.getStatus());
+//                //Toast.makeText(MainActivity.this, "Turn Left",
+//                //       Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getMiddleX()));
+//                    textY.setText(String.valueOf(robot.getMiddleY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
             }
         });
 
@@ -286,24 +287,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnRight).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                robot.moveRobotTurnRight();
-                mazeGrid.invalidate();
-                String navigation = null;
-                navigation = "STM,D";
-                outgoingMessage(navigation);
-                robot.setStatus("Turn Right");
-                textRobotStatus.setText(robot.getStatus());
-                //Toast.makeText(MainActivity.this, "Turn Right",
-                //      Toast.LENGTH_SHORT).show();
-                if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
-                    textDirection.setText(String.valueOf(robot.getDirection()));
-                }else{
-                    textX.setText("-");
-                    textY.setText("-");
-                    textDirection.setText("-");
-                }
+                Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
+//                robot.moveRobotTurnRight();
+//                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,D";
+//                outgoingMessage(navigation);
+//                robot.setStatus("Turn Right");
+//                textRobotStatus.setText(robot.getStatus());
+//                //Toast.makeText(MainActivity.this, "Turn Right",
+//                //      Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getMiddleX()));
+//                    textY.setText(String.valueOf(robot.getMiddleY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
             }
         });
 
@@ -321,8 +323,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Hard Left",
                 //       Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -346,8 +348,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Hard Right",
                 //      Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getX()));
-                    textY.setText(String.valueOf(robot.getY()));
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -361,51 +363,51 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 robot.moveRobotHardRightReverse();
-//                robot.moveRobotHardRight();
+
                 mazeGrid.invalidate();
-//                String navigation = null;
-//                navigation = "STM,E";
-//                outgoingMessage(navigation);
+                String navigation = null;
+                navigation = "STM,D";
+                outgoingMessage(navigation);
                 robot.setStatus("Hard Right Reverse");
                 textRobotStatus.setText(robot.getStatus());
-                //Toast.makeText(MainActivity.this, "Hard Right",
-                //      Toast.LENGTH_SHORT).show();
-//                if (robot.getX() != -1 && robot.getY() != -1){
-//                    textX.setText(String.valueOf(robot.getX()));
-//                    textY.setText(String.valueOf(robot.getY()));
-//                    textDirection.setText(String.valueOf(robot.getDirection()));
-//                }else{
-//                    textX.setText("-");
-//                    textY.setText("-");
-//                    textDirection.setText("-");
-//                }
-//            }
-        }});
+//                Toast.makeText(MainActivity.this, "Hard Right Reverse",
+//                      Toast.LENGTH_SHORT).show();
+                if (robot.getX() != -1 && robot.getY() != -1){
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textDirection.setText(String.valueOf(robot.getDirection()));
+                }else{
+                    textX.setText("-");
+                    textY.setText("-");
+                    textDirection.setText("-");
+                }
+            }
+        });
         // Hard right
         findViewById(R.id.btnHardLeftReverse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 robot.moveRobotHardLeftReverse();
-//                robot.moveRobotHardRight();
+                robot.moveRobotHardRight();
                 mazeGrid.invalidate();
-//                String navigation = null;
-//                navigation = "STM,E";
-//                outgoingMessage(navigation);
+                String navigation = null;
+                navigation = "STM,A";
+                outgoingMessage(navigation);
                 robot.setStatus("Hard Left Reverse");
                 textRobotStatus.setText(robot.getStatus());
-                //Toast.makeText(MainActivity.this, "Hard Right",
-                //      Toast.LENGTH_SHORT).show();
-//                if (robot.getX() != -1 && robot.getY() != -1){
-//                    textX.setText(String.valueOf(robot.getX()));
-//                    textY.setText(String.valueOf(robot.getY()));
-//                    textDirection.setText(String.valueOf(robot.getDirection()));
-//                }else{
-//                    textX.setText("-");
-//                    textY.setText("-");
-//                    textDirection.setText("-");
-//                }
-//            }
-            }});
+//                Toast.makeText(MainActivity.this, "Hard Left Reverse",
+//                      Toast.LENGTH_SHORT).show();
+                if (robot.getX() != -1 && robot.getY() != -1){
+                    textX.setText(String.valueOf(robot.getMiddleX()));
+                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textDirection.setText(String.valueOf(robot.getDirection()));
+                }else{
+                    textX.setText("-");
+                    textY.setText("-");
+                    textDirection.setText("-");
+                }
+            }
+            });
 //        findViewById(R.id.manual).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -490,6 +492,9 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+    public static void clearMap(){
+        mazeGrid.clearMap();
+    }
     private void startTimer()
     {
         if(timeStarted==true)
@@ -532,8 +537,10 @@ public class MainActivity extends AppCompatActivity {
     {
         return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
     }
-
-    public void stopTimer(){
+    public static boolean getTimeStarted(){
+        return timeStarted;
+    }
+    public static void stopTimer(){
         if(timerTask==null)
             return;
         timerTask.cancel();
@@ -650,8 +657,8 @@ public class MainActivity extends AppCompatActivity {
         if (1 <= x && x <= 18 && 1 <= y && y <= 18 && (direction == 'N' || direction == 'S' || direction == 'E' || direction == 'W')){
             robot.setCoordinates(x, y);
             robot.setDirection(direction);
-            textX.setText(String.valueOf(robot.getX()));
-            textY.setText(String.valueOf(robot.getY()));
+            textX.setText(String.valueOf(robot.getMiddleX()));
+            textY.setText(String.valueOf(robot.getMiddleY()));
             textDirection.setText(String.valueOf(robot.getDirection()));
             mazeGrid.invalidate();
             return true;
@@ -724,11 +731,11 @@ public class MainActivity extends AppCompatActivity {
     public static String getObstacleCoords(){
 
         ArrayList<Obstacle> obstacleArrayListList = Maze.getInstance().getObstacles();
-        String obstacleString = "taskOne";
+        String obstacleString = "";
         Log.d(TAG, String.valueOf(obstacleArrayListList));
 
         for (Obstacle obstacle : Maze.getInstance().getObstacles()) {
-            obstacleString += obstacle.getX() +  "," + obstacle.getY() + obstacle.getSide() + "/";
+            obstacleString += obstacle.getX() +  "," + obstacle.getY() +","+ obstacle.getSide() + "/";
         }
 
         return obstacleString;

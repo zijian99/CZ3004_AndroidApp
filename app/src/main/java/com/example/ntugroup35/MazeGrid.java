@@ -298,8 +298,8 @@ public class MazeGrid extends View {
                 if (dragObject instanceof Robot){
                     if ((movingX >= 1 && movingX <= 18) && (movingY >= 1 && movingY <= 18)){
                         MainActivity.robot.setCoordinates(movingX, movingY);
-                        MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
-                        MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
+                        MainActivity.textX.setText(String.valueOf(MainActivity.robot.getMiddleX()));
+                        MainActivity.textY.setText(String.valueOf(MainActivity.robot.getMiddleY()));
                         MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         invalidate();
                     }
@@ -317,7 +317,7 @@ public class MazeGrid extends View {
                 int finalY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
                 // when robot is drag and drop
                 if (dragObject instanceof Robot){
-                    MainActivity.outgoingMessage("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
+                    //MainActivity.outgoingMessage("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
                     //fragment.sendMsg1("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
                     if ((firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY())
                             || (firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY()+1)
@@ -336,8 +336,8 @@ public class MazeGrid extends View {
                         }
                         else{
                             MainActivity.robot.setCoordinates(finalX, finalY);
-                            MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
-                            MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
+                            MainActivity.textX.setText(String.valueOf(MainActivity.robot.getMiddleX()));
+                            MainActivity.textY.setText(String.valueOf(MainActivity.robot.getMiddleY()));
                             MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         }
                         invalidate();
@@ -351,7 +351,7 @@ public class MazeGrid extends View {
                         if (!Maze.getInstance().isOccupied(finalX, finalY, (Obstacle) dragObject)) {
                             dragObject.setCoordinates(finalX, finalY);
                         }
-                        MainActivity.outgoingMessage("OB" + ((Obstacle) dragObject).getNumberObs() + "," + dragObject.getX() + "," + dragObject.getY() + ",");
+                        //MainActivity.outgoingMessage("OB" + ((Obstacle) dragObject).getNumberObs() + "," + dragObject.getX() + "," + dragObject.getY() + ",");
                     }
                     invalidate();
                 }
@@ -360,7 +360,11 @@ public class MazeGrid extends View {
         gestureDetector.onTouchEvent(event);
         return true;
     }
-
+    public void clearMap(){
+        Maze.getInstance().clearMap();
+        MainActivity.robot.reset();
+        invalidate();
+    }
     /**
      * Set the obstacle facing direction
      *
@@ -371,11 +375,10 @@ public class MazeGrid extends View {
         obstacle.setSide(side);
         char direction = obstacle.getSide();
         // send to RPI to send to algo
-        MainActivity.outgoingMessage("PC," + obstacle.getNumberObs() + "," + obstacle.getX() +
-                "," + obstacle.getY() + "," + directionTo1234(direction, "0"));
+        //MainActivity.outgoingMessage("PC," + obstacle.getNumberObs() + "," + obstacle.getX() +
+        //        "," + obstacle.getY() + "," + directionTo1234(direction, "0"));
         invalidate();
     }
-
     /**
      * Convert direction char to int
      *

@@ -58,7 +58,11 @@ public class Maze {
             this.obstacles.get(i).setNumberObs(i + 1);
         }
     }
+    public void clearMap(){
+        System.out.println("clearing");
+        this.obstacles.clear();
 
+    }
     /**
      * Find obstacle using coordinates
      * @param x

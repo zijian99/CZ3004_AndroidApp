@@ -25,4 +25,8 @@
         android:id="@+id/reconnectDevice"
         android:title="Reconnect to Last Device"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/resetMap"
+        android:title="Reset Map"
+        app:showAsAction="never" />
 </menu>

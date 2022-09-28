@@ -47,6 +47,7 @@ public class Robot implements Coordinates {
     public void setX(int x){
         this.x = x;
     }
+    public int getMiddleX(){return this.x+1;}
     /**
      * Inherit class from the interface {@link Coordinates}
      *
@@ -56,6 +57,7 @@ public class Robot implements Coordinates {
     public int getY() {
         return this.y;
     }
+    public int getMiddleY(){return this.y+1;}
     /**
      * Set y coordinates
      *
