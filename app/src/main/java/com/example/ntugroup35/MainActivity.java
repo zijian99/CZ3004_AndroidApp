@@ -724,11 +724,11 @@ public class MainActivity extends AppCompatActivity {
     public static String getObstacleCoords(){
 
         ArrayList<Obstacle> obstacleArrayListList = Maze.getInstance().getObstacles();
-        String obstacleString = "The coordinates of all obstacles: ";
+        String obstacleString = "taskOne";
         Log.d(TAG, String.valueOf(obstacleArrayListList));
 
         for (Obstacle obstacle : Maze.getInstance().getObstacles()) {
-            obstacleString += obstacle.getX() +  "," + obstacle.getY() + "/";
+            obstacleString += obstacle.getX() +  "," + obstacle.getY() + obstacle.getSide() + "/";
         }
 
         return obstacleString;
