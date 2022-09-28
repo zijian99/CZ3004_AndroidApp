@@ -48,6 +48,7 @@ public class BluetoothService {
     private int mState;
     private int mNewState;
     private BluetoothDevice lastDevice;
+    private Boolean connected=false;
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -188,6 +189,10 @@ public class BluetoothService {
         mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
 
+        lastDevice=device;
+        connected=true;
+
+
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
@@ -276,7 +281,7 @@ public class BluetoothService {
         bundle.putString(Constants.TOAST, "Device connection was lost. Reconnecting...");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-
+        connected=false;
         mState = STATE_NONE;
         // Update UI title
         updateUserInterfaceTitle();
@@ -284,7 +289,9 @@ public class BluetoothService {
 
         // Start the service over to restart listening mode
         BluetoothService.this.start();
-        //connect(lastDevice,true);
+
+        int delay = 2000;// in ms
+        int tryCount=0;
     }
 
     /**
