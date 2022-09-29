@@ -417,10 +417,10 @@ public class BluetoothFragment extends Fragment {
                         MainActivity.setRobotPositionEXBackward();
                     }
                     else if (readMessage.equals("A")){
-                        MainActivity.setRobotPositionEXLeft();
+                        MainActivity.setRobotPositionEXHardLeftReverse();
                     }
                     else if (readMessage.equals("D")){
-                        MainActivity.setRobotPositionEXRight();
+                        MainActivity.setRobotPositionEXHardRightReverse();
                     }
                     else if (readMessage.equals("Q")){
                         MainActivity.setRobotPositionEXHardLeft();

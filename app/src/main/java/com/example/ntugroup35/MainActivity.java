@@ -708,6 +708,14 @@ public class MainActivity extends AppCompatActivity {
         robot.moveRobotHardRight();
         mazeGrid.invalidate();
     }
+    public static void setRobotPositionEXHardRightReverse(){
+        robot.moveRobotHardRightReverse();
+        mazeGrid.invalidate();
+    }
+    public static void setRobotPositionEXHardLeftReverse(){
+        robot.moveRobotHardLeftReverse();
+        mazeGrid.invalidate();
+    }
 
     /**
      * Set current obstacle as explored
