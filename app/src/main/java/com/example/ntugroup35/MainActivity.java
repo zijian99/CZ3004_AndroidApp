@@ -53,14 +53,6 @@ public class MainActivity extends AppCompatActivity {
      */
     static Robot robot = new Robot();
     private static BluetoothFragment fragment;
-//    /**
-//     * Tilt class
-//     */
-//    private Tilt tilt;
-//    /**
-//     * Mutable Live Data
-//     */
-//    MutableLiveData<String> listen = new MutableLiveData<>();
     /**
      * Text View for x coordinate
      */
@@ -114,9 +106,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bundle a= new Bundle();
-        
-//        listen.setValue("Default");
-//        tilt = new Tilt(this);
 
         init();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -130,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             fragment = new BluetoothFragment();
             transaction.replace(R.id.textBox, fragment);
             transaction.commit();
-
         }
         setupBtn();
 
@@ -195,16 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }});
 
-        // send list of obstacles
-//        findViewById(R.id.getObstacleCoord).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                robot.setStatus("Sending List of Obstacle Coordinates");
-//                textRobotStatus.setText(robot.getStatus());
-//                outgoingMessage(getObstacleCoords());
-//            }
-//        });
-
         // Move forward
         findViewById(R.id.btnForward).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,24 +240,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
-//                robot.moveRobotTurnLeft();
-//                mazeGrid.invalidate();
-//                String navigation = null;
-//                navigation = "STM,A";
-//                outgoingMessage(navigation);
-//                robot.setStatus("Turn Left");
-//                textRobotStatus.setText(robot.getStatus());
-//                //Toast.makeText(MainActivity.this, "Turn Left",
-//                //       Toast.LENGTH_SHORT).show();
-//                if (robot.getX() != -1 && robot.getY() != -1){
-//                    textX.setText(String.valueOf(robot.getMiddleX()));
-//                    textY.setText(String.valueOf(robot.getMiddleY()));
-//                    textDirection.setText(String.valueOf(robot.getDirection()));
-//                }else{
-//                    textX.setText("-");
-//                    textY.setText("-");
-//                    textDirection.setText("-");
-//                }
             }
         });
 
@@ -288,24 +248,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
-//                robot.moveRobotTurnRight();
-//                mazeGrid.invalidate();
-//                String navigation = null;
-//                navigation = "STM,D";
-//                outgoingMessage(navigation);
-//                robot.setStatus("Turn Right");
-//                textRobotStatus.setText(robot.getStatus());
-//                //Toast.makeText(MainActivity.this, "Turn Right",
-//                //      Toast.LENGTH_SHORT).show();
-//                if (robot.getX() != -1 && robot.getY() != -1){
-//                    textX.setText(String.valueOf(robot.getMiddleX()));
-//                    textY.setText(String.valueOf(robot.getMiddleY()));
-//                    textDirection.setText(String.valueOf(robot.getDirection()));
-//                }else{
-//                    textX.setText("-");
-//                    textY.setText("-");
-//                    textDirection.setText("-");
-//                }
             }
         });
 
@@ -408,89 +350,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             });
-//        findViewById(R.id.manual).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                outgoingMessage("sendArena");
-//            }
-//        });
 
         Switch s = (Switch) findViewById(R.id.autoUpdateSwitch);
-//        sensorManager = (SensorManager) getSystemService(AppCompatActivity.SENSOR_SERVICE);
-//        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-//                    tiltCheck =true;
-                    //outgoingMessage("Auto Update Arena");
                     startTimer();
                     onResume();
 //                    tilt.register();
                 } else {
                     // The toggle is disabled
-                    //outgoingMessage("Manual Update Arena");
-//                    tiltCheck =false;
                     stopTimer();
                     onPause();
                 }
             }
         });
 
-//        tilt.setListener(new Tilt.Listener() {
-//            @Override
-//            public void onRotation(float rotateX, float rotateY, float rotateZ) {
-//                if(rotateX <-1.0f){
-//                    if(listen.getValue() !="Move" ){
-//                        listen.setValue("Move");
-//                    }
-//                }
-//                else if (rotateX >1.0f){
-//                    if(listen.getValue() != "Default" ){
-//                        listen.setValue("Default");
-//                    }
-//                }
-//                else if(rotateZ <-1.0f){
-//                    if(listen.getValue() !="Right" ){
-//                        listen.setValue("Right");
-//                    }
-//                }
-//                else if (rotateZ >1.0f){
-//                    if(listen.getValue() !="Left" ){
-//                        listen.setValue("Left");
-//                    }
-//                }
-//            }
-//        });
-
-
-
-//        listen.observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(String s) {
-//                if(s == "Move"){
-//                    if (robot.getX() != -1 && robot.getY() != -1) {
-//                        robot.moveRobotForward();
-//                        mazeGrid.invalidate();
-//                        textX.setText(String.valueOf(robot.getX()));
-//                        textY.setText(String.valueOf(robot.getY()));
-//                        textDirection.setText(String.valueOf(robot.getDirection()));
-//                    }
-//                    Log.d("MainActivity", "Move");
-//                }else if (s=="Left"){
-//                    if (robot.getX() != -1 && robot.getY() != -1) {
-//                        robot.moveRobotTurnLeft();
-//                        mazeGrid.invalidate();
-//                        textX.setText(String.valueOf(robot.getX()));
-//                        textY.setText(String.valueOf(robot.getY()));
-//                        textDirection.setText(String.valueOf(robot.getDirection()));
-//                    }
-//                    Log.d("MainActivity", "Left");
-//                }else{
-//                    Log.d("MainActivity", "Change value: " + s);
-//                }
-//            }
-//        });
     }
     public static void clearMap(){
         mazeGrid.clearMap();
@@ -554,8 +430,6 @@ public class MainActivity extends AppCompatActivity {
         textTimer.setText("00:00:00");
         time=0.0;
         timeStarted=false;
-
-
 
     }
     /**
@@ -752,17 +626,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         return obstacleString;
-
-
-//        while (int i = 0; i < Maze.getInstance().getObstacles().size())
-//
-//        if (1 <= obstacleNumber && obstacleNumber <= Maze.getInstance().getObstacles().size()){
-//            Obstacle obstacle = Maze.getInstance().getObstacles().get(obstacleNumber - 1);
-//            obstacle.explore(targetID);
-//            mazeGrid.invalidate();
-//            return true;
-//        }
-//        return false;
     }
 
     /**
@@ -791,7 +654,4 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         //tilt.unregister();
     }
-
-
-
 }

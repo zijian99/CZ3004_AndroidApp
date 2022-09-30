@@ -248,10 +248,6 @@ public class BluetoothFragment extends Fragment {
                 Log.e("BlueFrag",message);
                 Log.e("BlueFrag",e.toString());
             }
-
-//            // Reset out string buffer to zero and clear the edit text field
-//            mOutStringBuffer.setLength(0);
-//            mOutEditText.setText(mOutStringBuffer);
         }
     }
 
