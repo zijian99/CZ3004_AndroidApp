@@ -289,7 +289,7 @@ public class BluetoothService {
         // Start the service over to restart listening mode
         BluetoothService.this.start();
 
-        int delay = 3000;// in ms
+        int delay = 4000;// in ms
 
         Timer timer = new Timer();
         for(int i=1;i<=3;i++){
