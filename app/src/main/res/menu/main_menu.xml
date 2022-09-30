@@ -22,6 +22,10 @@
         android:title="Reconnect to Last Device"
         app:showAsAction="never" />
     <item
+        android:id="@+id/disconnectDevice"
+        android:title="Disconnect Device"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/resetTimer"
         android:title="Reset Timer"
         app:showAsAction="never" />

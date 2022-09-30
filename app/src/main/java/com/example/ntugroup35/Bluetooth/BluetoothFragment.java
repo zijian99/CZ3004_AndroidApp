@@ -550,6 +550,10 @@ public class BluetoothFragment extends Fragment {
                 MainActivity.clearMap();
                 return true;
             }
+            case R.id.disconnectDevice:{
+                mChatService.disconnect();
+                mChatService.start();
+            }
         }
         return false;
     }

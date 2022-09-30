@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                 robot.setStatus("Sending List of Obstacle Coordinates");
                 textRobotStatus.setText(robot.getStatus());
-                outgoingMessage("taskOne/"+getObstacleCoords());
+                outgoingMessage("taskOne"+getObstacleCoords());
                 //outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
                 startTimer();}
 
@@ -741,10 +741,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Obstacle> obstacleArrayListList = Maze.getInstance().getObstacles();
         String obstacleString = "";
         Log.d(TAG, String.valueOf(obstacleArrayListList));
-
+        int count=0;
         for (Obstacle obstacle : Maze.getInstance().getObstacles()) {
-            obstacleString += obstacle.getX() +  "," + obstacle.getY() +","+ obstacle.getSide() + "/";
+            if(count!=0) {
+                obstacleString+="/";
+            }
+            obstacleString += obstacle.getX() +  "," + obstacle.getY() +","+ obstacle.getSide() ;
+            count++;
         }
+
 
         return obstacleString;
 
