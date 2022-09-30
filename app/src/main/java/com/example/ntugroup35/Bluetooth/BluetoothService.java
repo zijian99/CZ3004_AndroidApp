@@ -51,7 +51,6 @@ public class BluetoothService {
     private int mNewState;
     private BluetoothDevice lastDevice;
     private Boolean connected=false;
-    private Boolean toDisconnect=false;
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -123,26 +122,7 @@ public class BluetoothService {
         // Update UI title
         updateUserInterfaceTitle();
     }
-    public synchronized void disconnect() {
 
-
-        // Cancel any thread attempting to make a connection
-        if (mConnectThread != null) {
-            mConnectThread.cancel();
-            mConnectThread = null;
-        }
-
-        // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {
-            mConnectedThread.cancel();
-            mConnectedThread = null;
-        }
-        toDisconnect=true;
-        // Start the thread to listen on a BluetoothServerSocket
-
-        // Update UI title
-        updateUserInterfaceTitle();
-    }
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      *
@@ -289,23 +269,13 @@ public class BluetoothService {
         // Start the service over to restart
         // ening mode
         BluetoothService.this.start();
-
     }
 
     /**
      * Indicate that the connection was lost and notify the UI Activity.
      */
-    private void connectionLost(Boolean toDisconnect) {
+    private void connectionLost() {
         // Send a failure message back to the Activity
-        if(toDisconnect==true)
-        {
-            Message msg = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.TOAST, "Disconnected");
-            msg.setData(bundle);
-            mHandler.sendMessage(msg);
-            return;
-        }
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TOAST, "Device connection was lost. Reconnecting...");
@@ -553,7 +523,7 @@ public class BluetoothService {
                             .sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
-                    connectionLost(toDisconnect);
+                    connectionLost();
                     break;
                 }
             }
