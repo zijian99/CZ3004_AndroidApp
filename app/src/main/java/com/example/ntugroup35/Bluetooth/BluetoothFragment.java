@@ -385,8 +385,8 @@ public class BluetoothFragment extends Fragment {
                         String[] splitString = readMessage.split(",");
                         if (splitString.length == 4 && isInteger(splitString[1]) &&
                                 isInteger(splitString[2]) && splitString[3].length() == 1){
-                            if (MainActivity.setRobotPosition(Integer.parseInt(splitString[1])-1,
-                                    Integer.parseInt(splitString[2])-1, splitString[3].charAt(0))){
+                            if (MainActivity.setRobotPosition(Integer.parseInt(splitString[1]),
+                                    Integer.parseInt(splitString[2]), splitString[3].charAt(0))){
                                 messageIsCommand = true;
                             }
                         } else if (splitString.length == 2){
