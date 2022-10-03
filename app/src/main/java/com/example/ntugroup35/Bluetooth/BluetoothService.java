@@ -302,17 +302,6 @@ public class BluetoothService {
 
         //reconnectFailed();
     }
-//    private void reconnectFailed(){
-//        Message msg1 = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
-//        Bundle bundle1 = new Bundle();
-//        bundle1.putString(Constants.TOAST, "Please Manually Reconnect the Device Again");
-//        msg1.setData(bundle1);
-//        mHandler.sendMessage(msg1);
-//        mState = STATE_NONE;
-//        // Update UI title
-//        updateUserInterfaceTitle();
-//        BluetoothService.this.start();
-//    }
 
     /**
      * This thread runs while listening for incoming connections. It behaves
