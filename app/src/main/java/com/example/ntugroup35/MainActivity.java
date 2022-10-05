@@ -368,6 +368,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public static void presetMap(){
+        mazeGrid.presetMap();
+    }
+    public static void smithaMap(){
+        mazeGrid.smithaMap();
+    }
     public static void clearMap(){
         mazeGrid.clearMap();
     }

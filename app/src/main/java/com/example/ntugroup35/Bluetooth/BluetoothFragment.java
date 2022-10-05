@@ -546,6 +546,14 @@ public class BluetoothFragment extends Fragment {
                 MainActivity.clearMap();
                 return true;
             }
+            case R.id.presetMap:{
+                MainActivity.presetMap();
+                return true;
+            }
+            case R.id.smithaMap:{
+                MainActivity.smithaMap();
+                return true;
+            }
 
         }
         return false;

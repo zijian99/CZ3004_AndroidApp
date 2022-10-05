@@ -34,4 +34,12 @@
         android:id="@+id/resetMap"
         android:title="Reset Map"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/presetMap"
+        android:title="Set Preset Map"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/smithaMap"
+        android:title="Set Smitha Map"
+        app:showAsAction="never" />
 </menu>

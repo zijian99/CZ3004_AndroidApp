@@ -365,6 +365,48 @@ public class MazeGrid extends View {
         MainActivity.robot.reset();
         invalidate();
     }
+    public void presetMap(){
+        clearMap();
+        Obstacle ob1= Maze.getInstance().addObstacle();
+        Obstacle ob2= Maze.getInstance().addObstacle();
+        Obstacle ob3= Maze.getInstance().addObstacle();
+        Obstacle ob4= Maze.getInstance().addObstacle();
+        ob1.setCoordinates(8,8);
+        ob1.setSide('S');
+        ob2.setCoordinates(19,3);
+        ob2.setSide('W');
+        ob3.setCoordinates(19,18);
+        ob3.setSide('S');
+        ob4.setCoordinates(2,19);
+        ob4.setSide('S');
+        MainActivity.robot.setCoordinates(1,1);
+        MainActivity.robot.setDirection('N');
+        invalidate();
+    }
+    public void smithaMap(){
+        clearMap();
+        Obstacle ob1= Maze.getInstance().addObstacle();
+        Obstacle ob2= Maze.getInstance().addObstacle();
+        Obstacle ob3= Maze.getInstance().addObstacle();
+        Obstacle ob4= Maze.getInstance().addObstacle();
+        Obstacle ob5= Maze.getInstance().addObstacle();
+        Obstacle ob6= Maze.getInstance().addObstacle();
+        ob1.setCoordinates(14,3);
+        ob1.setSide('E');
+        ob2.setCoordinates(11,8);
+        ob2.setSide('E');
+        ob3.setCoordinates(20,10);
+        ob3.setSide('W');
+        ob4.setCoordinates(7,13);
+        ob4.setSide('N');
+        ob5.setCoordinates(16,17);
+        ob5.setSide('W');
+        ob6.setCoordinates(2,19);
+        ob6.setSide('S');
+        MainActivity.robot.setCoordinates(1,1);
+        MainActivity.robot.setDirection('N');
+        invalidate();
+    }
     /**
      * Set the obstacle facing direction
      *
