@@ -61,6 +61,7 @@ Things to improve:
 Developed by:<br>
 <br>
 [Zi Jian](https://github.com/zijian99)
+[Chien Hui](https://github.com/Limchienhui)
 
 
 <br>
