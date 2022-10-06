@@ -29,6 +29,7 @@ Fastest car task using visual recognition<br>
 Android TODO: Press start button<br><br>
 <br>
 ## <b>App Functions </b><br>
+|   |                                                                                     |
 |---|-------------------------------------------------------------------------------------|
 | 1.| 20x20 Maze                                                                          |
 | 2.| Bluetooth connection to Raspberry Pi                                                |
