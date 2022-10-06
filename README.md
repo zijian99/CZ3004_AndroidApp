@@ -22,18 +22,18 @@
 
 <br>
 <br>
-### <b>Task 1 for MDP </b>
+<b>Task 1 for MDP </b>
 <br>
 Automatic movement and image recognition task <br>
 Android TODO: Put the obstacle and robot to correct position and press the start button<br><br>
-### <b>Task 2 for MDP </b>
+<b>Task 2 for MDP </b>
 <br>
 Fastest car task using visual recognition<br>
 Android TODO: Press start button<br><br>
 <br>
 <br>
 
-### <b>App Functions </b>
+<b>App Functions </b>
 <br>
 
 |   |                                                                                    |
@@ -56,7 +56,8 @@ Things to improve:
 | 1.| Bluetooth should be run using Service or IntentService(Background Task)             |
 | 2.| Generalize the setting up of Sample Arena instead of hardcoding                     |
 | 3.| Make the code more loose coupling                                                   |
-
+<br>
+<br>
 Developed by:<br>
 [Zi Jian](https://github.com/zijian99)<br>
 [Chien Hui](https://github.com/Limchienhui)<br>
