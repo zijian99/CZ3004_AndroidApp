@@ -19,16 +19,22 @@
 | Your Android tablet will be the wireless remote controller device for your team’s robotic system |
 | It will issue commands to robot to begin various manoeuvres in arena during the competition      |
 | It will allow the team to visualize the current status of arena and robot                        |
+
 <br>
 <br>
-### <b>Task 1 for MDP </b><br>
+### <b>Task 1 for MDP </b>
+<br>
 Automatic movement and image recognition task <br>
 Android TODO: Put the obstacle and robot to correct position and press the start button<br><br>
-## <b>Task 2 for MDP </b><br>
+### <b>Task 2 for MDP </b>
+<br>
 Fastest car task using visual recognition<br>
 Android TODO: Press start button<br><br>
 <br>
-### <b>App Functions </b><br>
+<br>
+
+### <b>App Functions </b>
+<br>
 
 |   |                                                                                    |
 |---|-------------------------------------------------------------------------------------|
@@ -45,9 +51,14 @@ Android TODO: Press start button<br><br>
 <br>
 Things to improve:
 
+|   |                                                                                     |
 |---|-------------------------------------------------------------------------------------|
-| 1.| 20x20 Maze                                                                          |
-| 2.| Bluetooth connection to Raspberry Pi                                                |
-| 3.| Sending of message to Raspberry Pi                                                  |
+| 1.| Bluetooth should be run using Service or IntentService(Background Task)             |
+| 2.| Generalize the setting up of Sample Arena instead of hardcoding                     |
+| 3.| Make the code more loose coupling                                                   |
+
+Developed by:<br>
+[Zi Jian](https://github.com/zijian99)<br>
+[Chien Hui](https://github.com/Limchienhui)<br>
 
 
