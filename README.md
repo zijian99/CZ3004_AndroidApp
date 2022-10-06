@@ -3,7 +3,6 @@
 <br>
 <br>
 <br>
-<br>
 
 | *Objective*                                                       | 
 | ------------------------------------------------------------------|
@@ -23,4 +22,27 @@
 <br>
 <br>
 ## <b>Task 1 for MDP </b><br>
+Automatic movement and image recognition task <br>
+Android TODO: Put the obstacle and robot to correct position and press the start button<br><br>
+## <b>Task 2 for MDP </b><br>
+Fastest car task using visual recognition<br>
+Android TODO: Press start button<br><br>
+<br>
+## <b>App Functions </b><br>
+|---|-------------------------------------------------------------------------------------|
+| 1.| 20x20 Maze                                                                          |
+| 2.| Bluetooth connection to Raspberry Pi                                                |
+| 3.| Sending of message to Raspberry Pi                                                  |
+| 4.| Manual / Auto Reconnection of Bluetooth ( 3 times auto-reconnection for 4 seconds ) |
+| 5.| Timer for calculating task execution time                                           |
+| 6.| Sample Arena Auto Setup Button / Clear Map Button                                   |
+| 7.| Auto Update of Robot position and obstacle image id when received message           |  
+| 8.| Manual Setup Robot and Obstacle Postion and their facing ( Press and hold the obstacle on the map for choosing of direction N/S/E/W ) |
+<br>
+<br>
+Things to improve:
+|---|-------------------------------------------------------------------------------------|
+| 1.| 20x20 Maze                                                                          |
+| 2.| Bluetooth connection to Raspberry Pi                                                |
+| 3.| Sending of message to Raspberry Pi                                                  |
 
