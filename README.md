@@ -29,7 +29,8 @@ Fastest car task using visual recognition<br>
 Android TODO: Press start button<br><br>
 <br>
 ### <b>App Functions </b><br>
-| 1  |          1                                                                           |
+
+|   |                                                                                    |
 |---|-------------------------------------------------------------------------------------|
 | 1.| 20x20 Maze                                                                          |
 | 2.| Bluetooth connection to Raspberry Pi                                                |
@@ -39,11 +40,14 @@ Android TODO: Press start button<br><br>
 | 6.| Sample Arena Auto Setup Button / Clear Map Button                                   |
 | 7.| Auto Update of Robot position and obstacle image id when received message           |  
 | 8.| Manual Setup Robot and Obstacle Postion and their facing ( Press and hold the obstacle on the map for choosing of direction N/S/E/W ) |
+
 <br>
 <br>
 Things to improve:
+
 |---|-------------------------------------------------------------------------------------|
 | 1.| 20x20 Maze                                                                          |
 | 2.| Bluetooth connection to Raspberry Pi                                                |
 | 3.| Sending of message to Raspberry Pi                                                  |
+
 
