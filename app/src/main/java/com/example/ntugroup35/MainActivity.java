@@ -235,11 +235,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Turn left
+         // Turn left
         findViewById(R.id.btnLeft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
+//                robot.moveRobotTurnLeft();
+//                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,A";
+//                outgoingMessage(navigation);
+//                robot.setStatus("Turn Left");
+//                textRobotStatus.setText(robot.getStatus());
+//                //Toast.makeText(MainActivity.this, "Turn Left",
+//                //       Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getMiddleX()));
+//                    textY.setText(String.valueOf(robot.getMiddleY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
             }
         });
 
@@ -248,6 +266,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"Locked",Toast.LENGTH_SHORT).show();
+//                robot.moveRobotTurnRight();
+//                mazeGrid.invalidate();
+//                String navigation = null;
+//                navigation = "STM,D";
+//                outgoingMessage(navigation);
+//                robot.setStatus("Turn Right");
+//                textRobotStatus.setText(robot.getStatus());
+//                //Toast.makeText(MainActivity.this, "Turn Right",
+//                //      Toast.LENGTH_SHORT).show();
+//                if (robot.getX() != -1 && robot.getY() != -1){
+//                    textX.setText(String.valueOf(robot.getMiddleX()));
+//                    textY.setText(String.valueOf(robot.getMiddleY()));
+//                    textDirection.setText(String.valueOf(robot.getDirection()));
+//                }else{
+//                    textX.setText("-");
+//                    textY.setText("-");
+//                    textDirection.setText("-");
+//                }
             }
         });
 
