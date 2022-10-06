@@ -59,7 +59,12 @@ Things to improve:
 <br>
 <br>
 Developed by:<br>
+<br>
 [Zi Jian](https://github.com/zijian99)<br>
-[Chien Hui](https://github.com/Limchienhui)<br>
+[Chien Hui] (https://github.com/Limchienhui)<br>
+
+<br>
+<br>
+
 
 
