@@ -4,14 +4,17 @@
 <br>
 <br>
 <br>
+
 | *Objective*                                                       | 
 | ------------------------------------------------------------------|
 | Develop mobile apps on an Android-powered device                  |
 | Design and develop graphical user interface-based apps            |
 | Implement wireless connectivity between Bluetoothenabled devices  |
 | Design and implement graphical displays in your Android app       |
+
 <br>
 <br>
+
 | *Purpose*                                                                                        | 
 | -------------------------------------------------------------------------------------------------|
 | Your Android tablet will be the wireless remote controller device for your team’s robotic system |
