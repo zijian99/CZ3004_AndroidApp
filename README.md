@@ -21,15 +21,15 @@
 | It will allow the team to visualize the current status of arena and robot                        |
 <br>
 <br>
-## <b>Task 1 for MDP </b><br>
+### <b>Task 1 for MDP </b><br>
 Automatic movement and image recognition task <br>
 Android TODO: Put the obstacle and robot to correct position and press the start button<br><br>
 ## <b>Task 2 for MDP </b><br>
 Fastest car task using visual recognition<br>
 Android TODO: Press start button<br><br>
 <br>
-## <b>App Functions </b><br>
-|   |                                                                                     |
+### <b>App Functions </b><br>
+| 1  |          1                                                                           |
 |---|-------------------------------------------------------------------------------------|
 | 1.| 20x20 Maze                                                                          |
 | 2.| Bluetooth connection to Raspberry Pi                                                |
