@@ -407,6 +407,38 @@ public class MazeGrid extends View {
         MainActivity.robot.setDirection('N');
         invalidate();
     }
+    public void eMap(){
+        clearMap();
+        Obstacle ob1= Maze.getInstance().addObstacle();
+        Obstacle ob2= Maze.getInstance().addObstacle();
+        Obstacle ob3= Maze.getInstance().addObstacle();
+        Obstacle ob4= Maze.getInstance().addObstacle();
+        Obstacle ob5= Maze.getInstance().addObstacle();
+        Obstacle ob6= Maze.getInstance().addObstacle();
+        Obstacle ob7= Maze.getInstance().addObstacle();
+        Obstacle ob8= Maze.getInstance().addObstacle();
+
+        ob1.setCoordinates(5,1);
+        ob1.setSide('N');
+        ob2.setCoordinates(2,19);
+        ob2.setSide('S');
+        ob3.setCoordinates(19,17);
+        ob3.setSide('S');
+        ob4.setCoordinates(6,13);
+        ob4.setSide('E');
+        ob5.setCoordinates(11,19);
+        ob5.setSide('E');
+        ob6.setCoordinates(17,8);
+        ob6.setSide('S');
+        ob7.setCoordinates(16,8);
+        ob7.setSide('N');
+        ob8.setCoordinates(10,9);
+        ob8.setSide('S');
+
+        MainActivity.robot.setCoordinates(1,1);
+        MainActivity.robot.setDirection('N');
+        invalidate();
+    }
     /**
      * Set the obstacle facing direction
      *

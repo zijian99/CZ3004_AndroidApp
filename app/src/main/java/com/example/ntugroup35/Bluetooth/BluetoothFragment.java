@@ -401,7 +401,13 @@ public class BluetoothFragment extends Fragment {
                                 messageIsCommand = true;
                             }
                         }
+//                        else if (splitString.length == 7 && isInteger(splitString[4]) && isInteger(splitString[5])&&isInteger(splitString[6])){
+//                            if (MainActivity.exploreTargetViaCoordinates(Integer.parseInt(splitString[4]), Integer.parseInt(splitString[5]),Integer.parseInt(splitString[6]))){
+//                                messageIsCommand = true;
+//                            }
+//                        }
                     }
+//                    else if (readMessage.equals("status,END"))
                     else if (readMessage.equals("TASK,END")){
                         MainActivity.stopTimer();
                         Toast.makeText(activity, "Task has ended.", Toast.LENGTH_SHORT).show();
@@ -552,6 +558,10 @@ public class BluetoothFragment extends Fragment {
             }
             case R.id.smithaMap:{
                 MainActivity.smithaMap();
+                return true;
+            }
+            case R.id.eMap:{
+                MainActivity.eMap();
                 return true;
             }
 

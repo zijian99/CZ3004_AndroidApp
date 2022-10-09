@@ -413,6 +413,9 @@ public class MainActivity extends AppCompatActivity {
     public static void clearMap(){
         mazeGrid.clearMap();
     }
+    public static void eMap(){
+        mazeGrid.eMap();
+    }
     private void startTimer()
     {
         if(timeStarted==true)

@@ -42,4 +42,8 @@
         android:id="@+id/smithaMap"
         android:title="Set Smitha Map"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/eMap"
+        android:title="Set Preset Map 8 obs"
+        app:showAsAction="never" />
 </menu>
