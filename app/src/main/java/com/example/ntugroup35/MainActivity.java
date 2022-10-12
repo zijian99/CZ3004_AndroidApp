@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     robot.setStatus("Start fastest robot parking.");
                     textRobotStatus.setText(robot.getStatus());
-                    outgoingMessage("STM,I"); //send message to RPI to let them know robot may start moving
+                    outgoingMessage("taskTwo"); //send message to RPI to let them know robot may start moving
                     resetTimer();
                     startTimer();
                 }
