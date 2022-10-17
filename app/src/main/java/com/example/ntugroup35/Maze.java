@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Maze {
     private static Maze maze;
-
     /**
      * Get the maze object
      *
@@ -58,10 +57,13 @@ public class Maze {
             this.obstacles.get(i).setNumberObs(i + 1);
         }
     }
+
+    /**
+     * Clean up all the obstacle and robot on map
+     */
     public void clearMap(){
         System.out.println("clearing");
         this.obstacles.clear();
-
     }
     /**
      * Find obstacle using coordinates
@@ -77,6 +79,13 @@ public class Maze {
         }
         return null;
     }
+
+    /**
+     * Find the obstacle no. via its coordinates
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return obstacle no.
+     */
     public int findObstacleNumber(int x, int y){
         for (Obstacle obstacle: this.obstacles){
             if (obstacle.containsCoordinate(x, y)){

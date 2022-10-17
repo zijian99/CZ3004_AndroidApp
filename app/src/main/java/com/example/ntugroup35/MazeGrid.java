@@ -298,8 +298,8 @@ public class MazeGrid extends View {
                 if (dragObject instanceof Robot){
                     if ((movingX >= 1 && movingX <= 18) && (movingY >= 1 && movingY <= 18)){
                         MainActivity.robot.setCoordinates(movingX, movingY);
-                        MainActivity.textX.setText(String.valueOf(MainActivity.robot.getMiddleX()));
-                        MainActivity.textY.setText(String.valueOf(MainActivity.robot.getMiddleY()));
+                        MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
+                        MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
                         MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         invalidate();
                     }
@@ -336,8 +336,8 @@ public class MazeGrid extends View {
                         }
                         else{
                             MainActivity.robot.setCoordinates(finalX, finalY);
-                            MainActivity.textX.setText(String.valueOf(MainActivity.robot.getMiddleX()));
-                            MainActivity.textY.setText(String.valueOf(MainActivity.robot.getMiddleY()));
+                            MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
+                            MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
                             MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         }
                         invalidate();
@@ -360,11 +360,19 @@ public class MazeGrid extends View {
         gestureDetector.onTouchEvent(event);
         return true;
     }
+
+    /**
+     * Clear all the obstacles and robot on the map
+     */
     public void clearMap(){
         Maze.getInstance().clearMap();
         MainActivity.robot.reset();
         invalidate();
     }
+
+    /**
+     * Hardcoded preset map for convenience when doing testing of robot(not recommended for doing this)
+     */
     public void presetMap(){
         clearMap();
         Obstacle ob1= Maze.getInstance().addObstacle();
@@ -383,6 +391,9 @@ public class MazeGrid extends View {
         MainActivity.robot.setDirection('N');
         invalidate();
     }
+    /**
+     * Hardcoded preset map 2 for convenience when doing testing of robot(not recommended for doing this)
+     */
     public void smithaMap(){
         clearMap();
         Obstacle ob1= Maze.getInstance().addObstacle();
@@ -407,6 +418,9 @@ public class MazeGrid extends View {
         MainActivity.robot.setDirection('N');
         invalidate();
     }
+    /**
+     * Hardcoded preset map 3 for convenience when doing testing of robot(not recommended for doing this)
+     */
     public void eMap(){
         clearMap();
         Obstacle ob1= Maze.getInstance().addObstacle();

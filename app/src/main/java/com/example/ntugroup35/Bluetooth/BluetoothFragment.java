@@ -302,8 +302,7 @@ public class BluetoothFragment extends Fragment {
             return true;
         }
     };
-////////////////////////////////////////////////////////////////////////////////
-    //polymorphism
+
     /**
      * Updates the status on the action bar.
      *
@@ -401,11 +400,6 @@ public class BluetoothFragment extends Fragment {
                                 messageIsCommand = true;
                             }
                         }
-//                        else if (splitString.length == 7 && isInteger(splitString[4]) && isInteger(splitString[5])&&isInteger(splitString[6])){
-//                            if (MainActivity.exploreTargetViaCoordinates(Integer.parseInt(splitString[4]), Integer.parseInt(splitString[5]),Integer.parseInt(splitString[6]))){
-//                                messageIsCommand = true;
-//                            }
-//                        }
                     }
 //                    else if (readMessage.equals("status,END"))
                     else if (readMessage.equals("TASK,END")){
@@ -510,6 +504,10 @@ public class BluetoothFragment extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
     }
     //require location and bluetooth permission to access bluetooth
+
+    /**
+     * Check permission and start the device list activity
+     */
     private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);

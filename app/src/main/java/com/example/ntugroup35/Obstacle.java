@@ -13,7 +13,9 @@ public class Obstacle implements Coordinates {
      * Number of Obstacles
      */
     private int numberObs;
-
+    /**
+     * Found id of the obstacle
+     */
     private int targetID;
     /**
      * Side of obstacle facing at

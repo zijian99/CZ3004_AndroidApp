@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
      * Robot instance
      */
     static Robot robot = new Robot();
+    /**
+     * Bluetooth fragment
+     */
     private static BluetoothFragment fragment;
     /**
      * Text View for x coordinate
@@ -70,29 +73,31 @@ public class MainActivity extends AppCompatActivity {
      */
     public static TextView textRobotStatus;
     /**
-     * Whether tilt is on
+     * Text view for timer
      */
     public static TextView textTimer;
-    public static Timer timer;
-    public static TimerTask timerTask;
-    public static Double time=0.0;
-    public static Boolean timeStarted=false;
     /**
-     * Whether tilt is on
+     * Timer
      */
-    public boolean tiltCheck = false;
+    public static Timer timer;
+    /**
+     * Timer task
+     */
+    public static TimerTask timerTask;
+    /**
+     * Time
+     */
+    public static Double time=0.0;
+    /**
+     * Boolean of timer has started
+     */
+    public static Boolean timeStarted=false;
     /**
      * 20x20 Maze for the robot and obstacle
      */
     private static MazeGrid mazeGrid;
-    /**
-     * Fragment for bluetooth message
-     */
-    //BluetoothFragment fragment;
-    /**
-     * Sensor Manager for tilting
-     */
-    private SensorManager sensorManager;
+
+
     private final int LOCATION_PERMISSION_REQUEST = 101;
     // Intent request codes from device list activity
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
@@ -156,13 +161,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this, "Please reset timer to start the task", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-                robot.setStatus("Sending List of Obstacle Coordinates");
-                textRobotStatus.setText(robot.getStatus());
-                outgoingMessage("taskOne"+getObstacleCoords());
-                //outgoingMessage("OB,END"); //send message to RPI to let them know obstacle placement is done
-                startTimer();}
+                else {
+                    robot.setStatus("Sending List of Obstacle Coordinates");
+                    textRobotStatus.setText(robot.getStatus());
+                    //send message to RPI to let them know obstacle placement is done
+                    outgoingMessage("taskOne"+getObstacleCoords());
+                    startTimer();
+                }
 
             }});
 
@@ -177,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     robot.setStatus("Start fastest robot parking.");
                     textRobotStatus.setText(robot.getStatus());
-                    outgoingMessage("taskTwo"); //send message to RPI to let them know robot may start moving
+                    //send message to RPI to let them know robot may start moving
+                    outgoingMessage("taskTwo");
                     resetTimer();
                     startTimer();
                 }
@@ -197,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Move forward",
                 //   Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1) {
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 } else {
                     textX.setText("-");
@@ -223,8 +229,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Move backward",
                 //   Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1) {
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 } else {
                     textX.setText("-");
@@ -301,8 +307,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Hard Left",
                 //       Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -326,8 +332,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "Hard Right",
                 //      Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -351,8 +357,8 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "Hard Right Reverse",
 //                      Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -376,8 +382,8 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, "Hard Left Reverse",
 //                      Toast.LENGTH_SHORT).show();
                 if (robot.getX() != -1 && robot.getY() != -1){
-                    textX.setText(String.valueOf(robot.getMiddleX()));
-                    textY.setText(String.valueOf(robot.getMiddleY()));
+                    textX.setText(String.valueOf(robot.getX()));
+                    textY.setText(String.valueOf(robot.getY()));
                     textDirection.setText(String.valueOf(robot.getDirection()));
                 }else{
                     textX.setText("-");
@@ -394,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
                     // The toggle is enabled
                     startTimer();
                     onResume();
-//                    tilt.register();
+//
                 } else {
                     // The toggle is disabled
                     stopTimer();
@@ -404,22 +410,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * Setup a preset map in maze grid
+     */
     public static void presetMap(){
         mazeGrid.presetMap();
     }
+    /**
+     * Setup a preset map in maze grid
+     */
     public static void smithaMap(){
         mazeGrid.smithaMap();
     }
+    /**
+     * Clear all the obstacle and robot in map in maze grid
+     */
     public static void clearMap(){
         mazeGrid.clearMap();
     }
+    /**
+     * Setup a preset map in maze grid
+     */
     public static void eMap(){
         mazeGrid.eMap();
     }
-    private void startTimer()
-    {
-        if(timeStarted==true)
-        {
+    /**
+     * Start the timer for the task
+     */
+    private void startTimer() {
+        if(timeStarted==true) {
             Toast.makeText(this, "Task has started", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -444,7 +464,11 @@ public class MainActivity extends AppCompatActivity {
         };
         timer.scheduleAtFixedRate(timerTask, 0 ,1000);
     }
-
+    /**
+     * Get the time in string format
+     *
+     * @return string of time
+     */
     private String getTimerText() {
         int rounded = (int) Math.round(time);
 
@@ -454,19 +478,42 @@ public class MainActivity extends AppCompatActivity {
 
         return formatTime(seconds, minutes, hours);
     }
+    /**
+     * Get the time in string format
+     *
+     * @param seconds seconds
+     * @param hours  hours
+     * @param minutes minutes
+     *
+     * @return string of time
+     */
     private static String formatTime(int seconds, int minutes, int hours)
     {
         return String.format("%02d",hours) + " : " + String.format("%02d",minutes) + " : " + String.format("%02d",seconds);
     }
+
+    /**
+     * Return whether timer has started
+     *
+     * @return boolean
+     */
     public static boolean getTimeStarted(){
         return timeStarted;
     }
+
+    /**
+     * Stop the timer
+     */
     public static void stopTimer(){
         if(timerTask==null)
             return;
         timerTask.cancel();
         timeStarted=false;
     }
+
+    /**
+     * Reset the timer to 0
+     */
     public static void resetTimer()
     {
         if(timerTask==null)
@@ -553,6 +600,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Explore a certain obstacle by its coordinates
+     *
+     * @param x x coordinates
+     * @param y y coordinates
+     * @param targetID found id of the obstacles
+     * @return boolean
+     */
     public static boolean exploreTargetViaCoordinates(int x,int y, int targetID){
         // if obstacle number exists in map
         int obstacleNumber=Maze.getInstance().findObstacleNumber(x,y);
@@ -576,8 +632,8 @@ public class MainActivity extends AppCompatActivity {
         if (1 <= x && x <= 18 && 1 <= y && y <= 18 && (direction == 'N' || direction == 'S' || direction == 'E' || direction == 'W')){
             robot.setCoordinates(x, y);
             robot.setDirection(direction);
-            textX.setText(String.valueOf(robot.getMiddleX()));
-            textY.setText(String.valueOf(robot.getMiddleY()));
+            textX.setText(String.valueOf(robot.getX()));
+            textY.setText(String.valueOf(robot.getY()));
             textDirection.setText(String.valueOf(robot.getDirection()));
             mazeGrid.invalidate();
             return true;
@@ -627,15 +683,20 @@ public class MainActivity extends AppCompatActivity {
         robot.moveRobotHardRight();
         mazeGrid.invalidate();
     }
+    /**
+     * Make robot turn reverse hard right
+     */
     public static void setRobotPositionEXHardRightReverse(){
         robot.moveRobotHardRightReverse();
         mazeGrid.invalidate();
     }
+    /**
+     * Make robot turn reverse hard left
+     */
     public static void setRobotPositionEXHardLeftReverse(){
         robot.moveRobotHardLeftReverse();
         mazeGrid.invalidate();
     }
-
     /**
      * Set current obstacle as explored
      *
@@ -655,6 +716,11 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Get the string of details of all obstacles available in map
+     *
+     * @return string of details of obstacles
+     */
     public static String getObstacleCoords(){
 
         ArrayList<Obstacle> obstacleArrayListList = Maze.getInstance().getObstacles();
@@ -668,8 +734,6 @@ public class MainActivity extends AppCompatActivity {
             obstacleString += obstacle.getX() +  "," + obstacle.getY() +","+ obstacle.getSide() ;
             count++;
         }
-
-
         return obstacleString;
     }
 
@@ -685,18 +749,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //gyroscope.register();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //tilt.unregister();
     }
 }

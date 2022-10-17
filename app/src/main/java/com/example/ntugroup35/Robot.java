@@ -38,7 +38,6 @@ public class Robot implements Coordinates {
     public int getX() {
         return this.x;
     }
-
     /**
      * Set x coordinates
      *
@@ -47,7 +46,12 @@ public class Robot implements Coordinates {
     public void setX(int x){
         this.x = x;
     }
-    public int getMiddleX(){return this.x;}
+    /**
+     * Get center coordinate of robot
+     *
+     * @return x coordinate
+     */
+    public int getMiddleX(){return this.x+1;}
     /**
      * Inherit class from the interface {@link Coordinates}
      *
@@ -57,7 +61,12 @@ public class Robot implements Coordinates {
     public int getY() {
         return this.y;
     }
-    public int getMiddleY(){return this.y;}
+    /**
+     * Get center coordinate of robot
+     *
+     * @return y coordinate
+     */
+    public int getMiddleY(){return this.y+1;}
     /**
      * Set y coordinates
      *
@@ -279,7 +288,7 @@ public class Robot implements Coordinates {
         }
     }
     /**
-     * Make robot turn a hard left
+     * Make robot turn a reverse hard left
      */
     // "Q"
     public void moveRobotHardLeftReverse(){
@@ -362,6 +371,9 @@ public class Robot implements Coordinates {
             }
         }
     }
+    /**
+     * Make robot turn a reverse hard right
+     */
     public void moveRobotHardRightReverse(){
         if (this.x != -1 && this.y != -1){
             char robotDirection = this.getDirection();
