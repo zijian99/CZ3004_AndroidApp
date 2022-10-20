@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -51,6 +48,7 @@ public class BluetoothService {
     private int mNewState;
     private BluetoothDevice lastDevice;
     private Boolean connected=false;
+
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
@@ -267,7 +265,6 @@ public class BluetoothService {
         updateUserInterfaceTitle();
 
         // Start the service over to restart
-        // ening mode
         BluetoothService.this.start();
     }
 
@@ -283,6 +280,7 @@ public class BluetoothService {
         mHandler.sendMessage(msg);
         connected=false;
         mState = STATE_NONE;
+
         // Update UI title
         updateUserInterfaceTitle();
 
@@ -340,7 +338,7 @@ public class BluetoothService {
                     "BEGIN mAcceptThread" + this);
             setName("AcceptThread" + mSocketType);
 
-            BluetoothSocket socket = null;
+            BluetoothSocket socket;
 
             // Listen to the server socket if we're not connected
             while (mState != STATE_CONNECTED) {

@@ -1,7 +1,10 @@
-package com.example.ntugroup35;
+package com.example.ntugroup35.MazeObject;
 
 import android.util.Log;
 
+/**
+ * Robot Object
+ */
 public class Robot implements Coordinates {
     /**
      * X coordinate
@@ -96,7 +99,7 @@ public class Robot implements Coordinates {
      */
     @Override
     public boolean containsCoordinate(int x, int y) {
-        Log.d("PC,RP,", "" + this.x + "," + this.y);
+        Log.d("Robot Position at:", "" + this.x + "," + this.y);
         if (this.x <= x && x <= (this.x + 2) && this.y <= y && y <= (this.y + 2)){
             return true;
         }
@@ -142,7 +145,6 @@ public class Robot implements Coordinates {
     /**
      * Move robot forward by 1 unit of coordinate
      */
-    // "W"
     public void moveRobotForward(){
         char robotDirection = getDirection();
         if (this.x != -1 && this.y != -1){
@@ -173,7 +175,6 @@ public class Robot implements Coordinates {
     /**
      * Move robot backward by 1 unit of coordinate
      */
-    // "S"
     public void moveRobotBackward(){
         char robotDirection = getDirection();
         if (this.x != -1 && this.y != -1){
@@ -204,7 +205,6 @@ public class Robot implements Coordinates {
     /**
      * Turn robot facing direction to left
      */
-    // "A"
     public void moveRobotTurnLeft(){
         if (this.x != -1 && this.y != -1){
             char robotDirection = this.getDirection();
@@ -226,7 +226,6 @@ public class Robot implements Coordinates {
     /**
      * Turn robot facing direction to right
      */
-    // "D"
     public void moveRobotTurnRight(){
         if (this.x != -1 && this.y != -1){
             char robotDirection = this.getDirection();
@@ -248,7 +247,6 @@ public class Robot implements Coordinates {
     /**
      * Make robot turn a hard left
      */
-    // "Q"
     public void moveRobotHardLeft(){
         if (this.x != -1 && this.y != -1){
             char robotDirection = this.getDirection();

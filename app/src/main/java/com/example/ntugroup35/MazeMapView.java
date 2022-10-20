@@ -12,9 +12,16 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import com.example.ntugroup35.Bluetooth.BluetoothFragment;
 
-public class MazeGrid extends View {
+import com.example.ntugroup35.MazeObject.Coordinates;
+import com.example.ntugroup35.MazeObject.Maze;
+import com.example.ntugroup35.MazeObject.Obstacle;
+import com.example.ntugroup35.MazeObject.Robot;
+
+/**
+ * View class for MazeMap to show the info of the arena
+ */
+public class MazeMapView extends View {
     // dimensions of canvas
     private int width;
     private int height;
@@ -61,21 +68,29 @@ public class MazeGrid extends View {
     /**
      * Construtor of MazeGrid
      *
-     * @param context
+     * @param context context
      */
-    public MazeGrid(Context context){
+    public MazeMapView(Context context){
         this(context, null);
     }
 
     /**
      * Constructor of MazeGrid
      *
-     * @param context
-     * @param attrs
+     * @param context context
+     * @param attrs attribute
      */
-    public MazeGrid(Context context, AttributeSet attrs){
+    public MazeMapView(Context context, AttributeSet attrs){
         super(context, attrs);
         //setup all the color attribute
+        setupColorNText();
+
+    }
+
+    /**
+     * Setup the color and text for the map
+     */
+    private void setupColorNText(){
         whitePaint.setColor(Color.WHITE);
         whitePaint.setShadowLayer(border, 0, 0, Color.GRAY);
         grayPaint.setColor(Color.DKGRAY);
@@ -91,7 +106,6 @@ public class MazeGrid extends View {
         exploredWhiteNumber.setTextSize(22);
         exploredWhiteNumber.setTextAlign(Paint.Align.CENTER);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas){
@@ -134,7 +148,7 @@ public class MazeGrid extends View {
     /**
      * Draw coordinates
      *
-     * @param canvas
+     * @param canvas canvas
      */
     private void drawCoordinates(Canvas canvas){
         float offsetX = padding + border + cellWidth;
@@ -163,10 +177,10 @@ public class MazeGrid extends View {
     /**
      * Draw robot
      *
-     * @param canvas
-     * @param col
-     * @param row
-     * @param direction
+     * @param canvas canvas
+     * @param col column
+     * @param row row
+     * @param direction direction
      */
     private void drawRobot(Canvas canvas, int col, int row, char direction){
         Matrix robotBoxMatrix = new Matrix();
@@ -201,7 +215,7 @@ public class MazeGrid extends View {
 
     /**
      * Draw Obstacle
-     * @param canvas
+     * @param canvas canvas
      */
     private void drawObstacles(Canvas canvas){
         float textSize = this.whiteNumber.getTextSize();
@@ -240,7 +254,7 @@ public class MazeGrid extends View {
 
     /**
      * Draw obstacle box
-     * @param canvas
+     * @param canvas canvas
      */
     private void drawObstacleBox(Canvas canvas){
         Matrix matrix = new Matrix();
@@ -260,15 +274,15 @@ public class MazeGrid extends View {
             int selectedY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
             Coordinates obstacle = Maze.getInstance().findObstacle(selectedX, selectedY);
             if (obstacle != null){
-                MainActivity.obstacleDirectionPopup(getContext(), getRootView(), (Obstacle) obstacle);
+                MainActivity.obsDirectionPopupWindow(getContext(), getRootView(), (Obstacle) obstacle);
             }
         }
     });
 
     /**
      * Handle touch and drag of robot and obstacle
-     * @param event
-     * @return
+     * @param event motion event
+     * @return boolean
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -298,8 +312,8 @@ public class MazeGrid extends View {
                 if (dragObject instanceof Robot){
                     if ((movingX >= 1 && movingX <= 18) && (movingY >= 1 && movingY <= 18)){
                         MainActivity.robot.setCoordinates(movingX, movingY);
-                        MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
-                        MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
+                        MainActivity.textXCoord.setText(String.valueOf(MainActivity.robot.getX()));
+                        MainActivity.textYCoord.setText(String.valueOf(MainActivity.robot.getY()));
                         MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         invalidate();
                     }
@@ -317,8 +331,6 @@ public class MazeGrid extends View {
                 int finalY = (int) (NUMROW - ((event.getY() - adjustY)/cellHeight) + 1);
                 // when robot is drag and drop
                 if (dragObject instanceof Robot){
-                    //MainActivity.outgoingMessage("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
-                    //fragment.sendMsg1("PC,RP," + MainActivity.robot.getX() + "," + MainActivity.robot.getY());
                     if ((firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY())
                             || (firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY()+1)
                             || (firstX == MainActivity.robot.getX() && firstY == MainActivity.robot.getY()+2)
@@ -329,15 +341,17 @@ public class MazeGrid extends View {
                             || (firstX == MainActivity.robot.getX()+2 && firstY == MainActivity.robot.getY()+1)
                             || (firstX == MainActivity.robot.getX()+2 && firstY == MainActivity.robot.getY()+2)){
                         if ((finalX < 1 || finalX > 18) || (finalY < 1 || finalY > 18)){
+                            //reset to default
                             MainActivity.robot.reset();
-                            MainActivity.textX.setText("-");
-                            MainActivity.textY.setText("-");
+                            MainActivity.textXCoord.setText("-");
+                            MainActivity.textYCoord.setText("-");
                             MainActivity.textDirection.setText("-");
                         }
                         else{
+                            //update UI
                             MainActivity.robot.setCoordinates(finalX, finalY);
-                            MainActivity.textX.setText(String.valueOf(MainActivity.robot.getX()));
-                            MainActivity.textY.setText(String.valueOf(MainActivity.robot.getY()));
+                            MainActivity.textXCoord.setText(String.valueOf(MainActivity.robot.getX()));
+                            MainActivity.textYCoord.setText(String.valueOf(MainActivity.robot.getY()));
                             MainActivity.textDirection.setText(String.valueOf(MainActivity.robot.getDirection()));
                         }
                         invalidate();
@@ -345,13 +359,12 @@ public class MazeGrid extends View {
                 } else if (dragObject instanceof Obstacle){
                     if ((finalX < 1 || finalX > NUMCOL) || (finalY < 1 || finalY > NUMROW)){
                         Maze.getInstance().removeObstacle((Obstacle) dragObject);
-                        MainActivity.outgoingMessage("Removed Obstacle No. " + ((Obstacle) dragObject).getNumberObs());
+                        MainActivity.btSendMessage("Removed Obstacle No. " + ((Obstacle) dragObject).getNumberObs());
                     } else {
                         // If finger is released at a square
                         if (!Maze.getInstance().isOccupied(finalX, finalY, (Obstacle) dragObject)) {
                             dragObject.setCoordinates(finalX, finalY);
                         }
-                        //MainActivity.outgoingMessage("OB" + ((Obstacle) dragObject).getNumberObs() + "," + dragObject.getX() + "," + dragObject.getY() + ",");
                     }
                     invalidate();
                 }
@@ -456,34 +469,12 @@ public class MazeGrid extends View {
     /**
      * Set the obstacle facing direction
      *
-     * @param obstacle
-     * @param side
+     * @param obstacle obstacle to set
+     * @param side side
      */
     public void setObstacleDirection(Obstacle obstacle, char side){
         obstacle.setSide(side);
-        char direction = obstacle.getSide();
-        // send to RPI to send to algo
-        //MainActivity.outgoingMessage("PC," + obstacle.getNumberObs() + "," + obstacle.getX() +
-        //        "," + obstacle.getY() + "," + directionTo1234(direction, "0"));
         invalidate();
-    }
-    /**
-     * Convert direction char to int
-     *
-     * @param direction
-     * @param num
-     * @return
-     */
-    public String directionTo1234(char direction, String num){
-        if (direction == 'N')
-            num = "1";
-        else if (direction == 'S')
-            num = "2";
-        else if (direction == 'E')
-            num = "3";
-        else if (direction == 'W')
-            num = "4";
-        return num;
     }
 
 }

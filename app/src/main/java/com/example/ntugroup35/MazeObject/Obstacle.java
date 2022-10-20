@@ -1,5 +1,8 @@
-package com.example.ntugroup35;
+package com.example.ntugroup35.MazeObject;
 
+/**
+ * Obstacle object
+ */
 public class Obstacle implements Coordinates {
     /**
      * X coordinate
@@ -27,7 +30,7 @@ public class Obstacle implements Coordinates {
     private boolean isExplored;
 
     /**
-     * Constrcutor class
+     * Constructor class
      * @param numberObs number of obstacle
      */
     public Obstacle(int numberObs){
@@ -76,10 +79,7 @@ public class Obstacle implements Coordinates {
      */
     @Override
     public boolean containsCoordinate(int x, int y) {
-        if (this.x == x && this.y == y){
-            return true;
-        }
-        return false;
+        return this.x == x && this.y == y;
     }
 
     /**
@@ -102,7 +102,7 @@ public class Obstacle implements Coordinates {
 
     /**
      * Get the target id
-     * @return
+     * @return target id
      */
     public int getTargetID(){
         return this.targetID;
@@ -110,7 +110,7 @@ public class Obstacle implements Coordinates {
 
     /**
      * Get the side of the obstacle facing
-     * @return
+     * @return side
      */
     public char getSide(){
         return this.side;
@@ -133,7 +133,7 @@ public class Obstacle implements Coordinates {
 
     /**
      * Explore current obstacle
-     * @param targetID
+     * @param targetID target id to update
      */
     public void explore(int targetID){
         this.targetID = targetID;

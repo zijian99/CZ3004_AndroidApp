@@ -1,7 +1,10 @@
-package com.example.ntugroup35;
+package com.example.ntugroup35.MazeObject;
 
 import java.util.ArrayList;
 
+/**
+ * Maze Object
+ */
 public class Maze {
     private static Maze maze;
     /**

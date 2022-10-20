@@ -1,7 +1,7 @@
-package com.example.ntugroup35;
+package com.example.ntugroup35.MazeObject;
 
 /**
- * Interface for coordinates extended class {@link Obstacle} n
+ * Interface for coordinates extended class {@link Obstacle} n {@link Robot}
  */
 public interface Coordinates {
     int getX();

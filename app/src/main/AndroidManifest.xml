@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.ntugroup35.Bluetooth.DeviceList"
+            android:name="com.example.ntugroup35.Bluetooth.BluetoothScanActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
