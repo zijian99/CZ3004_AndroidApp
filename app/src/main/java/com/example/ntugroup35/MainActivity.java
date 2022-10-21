@@ -30,65 +30,77 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
     /**
      * Tag for log in Main Activity
      */
     public static final String TAG = "MainActivity";
+
     /**
      * Robot instance
      */
     static Robot robot = new Robot();
+
     /**
      * Bluetooth fragment
      */
     @SuppressLint("StaticFieldLeak")
     private static BluetoothFragment fragment;
+
     /**
      * Text View for x coordinate
      */
     @SuppressLint("StaticFieldLeak")
     public static TextView textXCoord;
+
     /**
      * Text View for y coordinate
      */
     @SuppressLint("StaticFieldLeak")
     public static TextView textYCoord;
+
     /**
      * Text View for robot direction
      */
     @SuppressLint("StaticFieldLeak")
     public static TextView textDirection;
+
     /**
      * Text View for robot status
      */
     @SuppressLint("StaticFieldLeak")
     public static TextView textRobotStatus;
+
     /**
      * Text view for timer
      */
     @SuppressLint("StaticFieldLeak")
     public static TextView textTimer;
+
     /**
      * Timer
      */
     public static Timer timer;
+
     /**
      * Timer task
      */
     public static TimerTask timerTask;
+
     /**
      * Time
      */
     public static Double time=0.0;
+
     /**
      * Boolean of timer has started
      */
     public static Boolean timeStarted=false;
+
     /**
      * 20x20 Maze for the robot and obstacle
      */
     private static MazeMapView mazeMapView;
-
 
 
     @Override
@@ -311,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        // Hard right
+        // Hard right reverse
         findViewById(R.id.btnHardRightReverse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -334,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        // Hard right
+        // Hard left reverse
         findViewById(R.id.btnHardLeftReverse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
